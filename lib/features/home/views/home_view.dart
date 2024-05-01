@@ -1,9 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:todo_app2/core/helpers/home_model.dart';
 import 'package:todo_app2/features/home/views/widgets/custom_Bottom_navigation_bar.dart';
 
-class HomeView extends StatelessWidget {
+class HomeView extends StatefulWidget {
   const HomeView({super.key});
 
+  @override
+  State<HomeView> createState() => _HomeViewState();
+}
+
+class _HomeViewState extends State<HomeView> {
+  int _currentIndex = 0;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -11,11 +18,19 @@ class HomeView extends StatelessWidget {
       floatingActionButton: FloatingActionButton(
         onPressed: () {},
         shape: const CircleBorder(),
-        elevation: 5,
+        elevation: 0,
         child: const Icon(Icons.add),
       ),
-      bottomNavigationBar: const CustomBottomNavigationBar(),
-      body: Container(),
+      bottomNavigationBar: CustomBottomNavigationBar(
+        onTapped: getSelectedItem,
+      ),
+      body: IndexModel.indexWidgets[_currentIndex],
     );
+  }
+
+  void getSelectedItem(int value) {
+    setState(() {
+      _currentIndex = value;
+    });
   }
 }

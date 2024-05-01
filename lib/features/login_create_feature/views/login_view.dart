@@ -161,8 +161,6 @@ class _LoginViewState extends State<LoginView> {
 
   // customize login button color according to user name value
   void _customizeLoginButtonColorUN(String value, BuildContext context) {
-    debugPrint(value);
-
     if (value.length == 1) {
       BlocProvider.of<LoginBloc>(context).userNameState =
           TextFieldState.isNotEmpty;
@@ -176,7 +174,6 @@ class _LoginViewState extends State<LoginView> {
 
   // customize login button color according to pass value
   void _customizeLoginButtonColorPass(String value, BuildContext context) {
-    debugPrint(value);
     if (value.length == 1) {
       BlocProvider.of<LoginBloc>(context).passState = TextFieldState.isNotEmpty;
       BlocProvider.of<LoginBloc>(context).add(LoginChangeButtonColorEvent());
