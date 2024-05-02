@@ -11,7 +11,7 @@ class SplashCreateView extends StatelessWidget {
     return SplashAppInfo(
       splashModel: SplashModel(
           viewNumbr: 2,
-          image: Assets.svgCreateDailyRoutie,
+          image: Assets.svgsCreateDailyRoutie,
           title: 'Create daily routine',
           subTitle:
               'In Uptodo  you can create your personalized routine to stay productive',

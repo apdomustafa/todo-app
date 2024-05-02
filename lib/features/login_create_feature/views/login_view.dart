@@ -110,12 +110,12 @@ class _LoginViewState extends State<LoginView> {
                   SignWith(
                       onPress: _loginWithGoogle,
                       text: 'Login with Google',
-                      image: Assets.svgGoogle),
+                      image: Assets.svgsGoogle),
                   const Gap(20),
                   SignWith(
                       onPress: () {},
                       text: 'Login with Apple',
-                      image: Assets.svgApple),
+                      image: Assets.svgsApple),
                   Gap(50.h),
 
                   Align(

@@ -50,6 +50,7 @@ dependencies:
   loading_overlay: ^0.3.0
   shared_preferences: ^2.2.3
   flutter_screenutil: ^5.9.0
+  flutter_spinner_time_picker: ^0.2.1
 
 dev_dependencies:
   flutter_test:
@@ -101,3 +102,9 @@ fonts:
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages
+
+flutter_assets:
+  assets_path: assets/svgs
+  output_path: lib/core/theming/
+  filename: assets.dart
+  field_prefix:

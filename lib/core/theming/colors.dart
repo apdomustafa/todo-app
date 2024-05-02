@@ -4,7 +4,7 @@ abstract class AppColors {
   static const Color labelColor = Color(0xFFFFFFFF);
   static Color labelColorOpecity87 = const Color(0xFFFFFFFF).withOpacity(0.87);
   static const Color darkPrimaryColor = Color(0xFF646464);
-  static const Color tertiaryColorColor = Color(0xFF272727);
+  static const Color tertiaryColor = Color(0xFF272727);
   static const Color primaryColor = Color(0xFF8687E7);
   static const Color secondryColor = Color(0xFF363636);
   static const Color errorColor = Color(0xFFFF4949);

@@ -11,7 +11,7 @@ class SplashOrganizeView extends StatelessWidget {
     return SplashAppInfo(
       splashModel: SplashModel(
           viewNumbr: 3,
-          image: Assets.svgOrganizeYourTask,
+          image: Assets.svgsOrganizeYourTask,
           title: 'Orgonaize your tasks',
           subTitle:
               'You can organize your daily tasks by adding your tasks into separate categories',

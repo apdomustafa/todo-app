@@ -11,7 +11,7 @@ class SplashManageView extends StatelessWidget {
     return SplashAppInfo(
       splashModel: SplashModel(
           viewNumbr: 1,
-          image: Assets.svgManageYourTask,
+          image: Assets.svgsManageYourTask,
           title: 'Manage your tasks',
           subTitle:
               'You can easily manage all of your daily tasks in DoMe for free',

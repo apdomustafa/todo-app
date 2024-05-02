@@ -131,12 +131,12 @@ class _CreateAccountViewState extends State<CreateAccountView> {
                               .add(RegisterWithGoogleSelected());
                         },
                         text: 'Login with Google',
-                        image: Assets.svgGoogle),
+                        image: Assets.svgsGoogle),
                     const Gap(20),
                     SignWith(
                         onPress: () {},
                         text: 'Login with Apple',
-                        image: Assets.svgApple),
+                        image: Assets.svgsApple),
                     const Gap(20),
                     Align(
                         alignment: Alignment.center,

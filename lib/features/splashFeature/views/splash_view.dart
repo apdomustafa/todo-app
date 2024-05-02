@@ -60,7 +60,7 @@ class _SplashViewState extends State<SplashView> with TickerProviderStateMixin {
                     offset: Offset(
                         0, 100 * (1 - _animation.value)), // Move the image up
                     child: SvgPicture.asset(
-                        Assets.svgLogo), // Replace with your image
+                        Assets.svgsLogo), // Replace with your image
                   ),
                 );
               },
