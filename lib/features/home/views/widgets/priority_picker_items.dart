@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:todo_app2/features/home/views/widgets/priority_picker_item.dart';
 
 class PriorityPickerItems extends StatefulWidget {
-  const PriorityPickerItems({super.key});
+  const PriorityPickerItems({super.key, required this.priorityTask});
+  final void Function(int) priorityTask;
 
   @override
   State<PriorityPickerItems> createState() => _PriorityPickerItemsState();
@@ -24,6 +25,7 @@ class _PriorityPickerItemsState extends State<PriorityPickerItems> {
             return InkWell(
               onTap: () {
                 setState(() {
+                  widget.priorityTask(index);
                   itemSelected = index;
                 });
               },

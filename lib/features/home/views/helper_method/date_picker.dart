@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:todo_app2/features/home/views/helper_methode/time_picker.dart';
+import 'package:todo_app2/core/DI.dart';
+import 'package:todo_app2/core/models/task_module.dart';
 
-Future<DateTime?> getDate(BuildContext context) async {
+Future<DateTime?> getDate(
+    {required BuildContext context,
+    required void Function(String date) date}) async {
   final initialDate = DateTime.now();
   final newDate = await showDatePicker(
       firstDate: DateTime(DateTime.now().year),
@@ -12,6 +15,7 @@ Future<DateTime?> getDate(BuildContext context) async {
   if (newDate == null) {
     return null;
   } else {
+    date(newDate.toString());
     return newDate;
   }
 }

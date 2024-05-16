@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:todo_app2/core/helpers/home_model.dart';
 import 'package:todo_app2/core/theming/colors.dart';
+import 'package:todo_app2/core/services/DB/dataBase.dart';
+
 import 'package:todo_app2/features/home/views/widgets/add_task.dart';
 import 'package:todo_app2/features/home/views/widgets/custom_Bottom_navigation_bar.dart';
 import 'package:todo_app2/features/home/views/widgets/custom_floating_action_buttom.dart';
@@ -25,7 +27,7 @@ class _HomeViewState extends State<HomeView> {
         bottomNavigationBar: CustomBottomNavigationBar(
           onTapped: getSelectedItem,
         ),
-        body: IndexModel.indexWidgets[_currentIndex],
+        body: IndexModel.homeWidgets[_currentIndex],
       ),
     );
   }

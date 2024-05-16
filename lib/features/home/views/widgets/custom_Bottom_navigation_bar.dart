@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:todo_app2/core/theming/colors.dart';
-import 'package:todo_app2/features/home/model/data/bottom_bar_item_model.dart';
+import 'package:todo_app2/features/home/views/helper_method/bottom_bar_item_model.dart';
 import 'package:todo_app2/features/home/views/widgets/bottom_bar_item.dart';
 
 class CustomBottomNavigationBar extends StatefulWidget {

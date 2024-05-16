@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:gap/gap.dart';
 import 'package:todo_app2/core/theming/assets.dart';
@@ -9,20 +10,26 @@ class IndexInitial extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        SvgPicture.asset(Assets.svgsHomeImage),
-        const Gap(10),
-        Text(
-          'What do you want to do today?',
-          style: AppStyles.styleLatoReguler20(context),
-        ),
-        const Gap(10),
-        Text(
-          'Tap + to add your tasks',
-          style: AppStyles.styleLatoReguler20(context),
-        ),
-      ],
+    return SingleChildScrollView(
+      child: Column(
+        children: [
+          SvgPicture.asset(
+            Assets.svgsHomeImage,
+            width: MediaQuery.sizeOf(context).height * 0.3,
+            height: MediaQuery.sizeOf(context).height * 0.3,
+          ),
+          const Gap(10),
+          Text(
+            'What do you want to do today?',
+            style: AppStyles.styleLatoReguler20(context),
+          ),
+          const Gap(10),
+          Text(
+            'Tap + to add your tasks',
+            style: AppStyles.styleLatoReguler20(context),
+          ),
+        ],
+      ),
     );
   }
 }

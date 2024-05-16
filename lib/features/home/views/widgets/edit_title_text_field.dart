@@ -2,21 +2,27 @@ import 'package:flutter/material.dart';
 import 'package:todo_app2/core/theming/colors.dart';
 import 'package:todo_app2/core/theming/styles.dart';
 
-class AddTaskTextField extends StatefulWidget {
-  const AddTaskTextField({super.key, required this.hint});
-  final String hint;
+class EditTitleTextField extends StatefulWidget {
+  const EditTitleTextField({
+    super.key,
+    required this.text,
+    required this.controller,
+  });
+  final String text;
+  final TextEditingController controller;
 
   @override
-  State<AddTaskTextField> createState() => _AddTaskTextFieldState();
+  State<EditTitleTextField> createState() => _EditTitleTextFieldState();
 }
 
-class _AddTaskTextFieldState extends State<AddTaskTextField> {
+class _EditTitleTextFieldState extends State<EditTitleTextField> {
   bool _isFocused = false;
   final FocusNode _focusNode = FocusNode();
   @override
   void initState() {
-    super.initState();
     _focusNode.addListener(_onFocusChange);
+    widget.controller.text = widget.text;
+    super.initState();
   }
 
   void _onFocusChange() {
@@ -35,10 +41,10 @@ class _AddTaskTextFieldState extends State<AddTaskTextField> {
   @override
   Widget build(BuildContext context) {
     return TextField(
+      controller: widget.controller,
       decoration: InputDecoration(
           contentPadding: EdgeInsets.symmetric(
               vertical: _isFocused ? 8 : 0, horizontal: _isFocused ? 16 : 0),
-          hintText: widget.hint,
           hintStyle: AppStyles.styleLatoReguler18(context),
           enabledBorder: InputBorder.none,
           focusedBorder: OutlineInputBorder(

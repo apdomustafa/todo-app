@@ -22,7 +22,7 @@ class PriorityPickerItem extends StatelessWidget {
       ),
       child: Column(
         children: [
-          const Expanded(child: AppIcons.bookMark),
+          Expanded(child: AppIcons.bookMark),
           Expanded(child: Text('$priorityNum')),
         ],
       ),
