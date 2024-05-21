@@ -69,10 +69,11 @@ class _LoginViewState extends State<LoginView> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   IconButton(
-                      onPressed: () {
-                        Navigator.of(context).pop();
-                      },
-                      icon: AppIcons.back),
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                    },
+                    icon: AppIcons.back,
+                  ),
                   Gap(45.h),
                   Text(
                     'Login',
@@ -83,7 +84,7 @@ class _LoginViewState extends State<LoginView> {
                     'Username',
                     style: AppStyles.styleLatoReguler16(context),
                   ),
-                  const Gap(8),
+                  Gap(8.h),
                   CustomTextFieldForm(
                     text: 'Enter your Username',
                     controller: userNamecontroller,

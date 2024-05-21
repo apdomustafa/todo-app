@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:gap/gap.dart';
 import 'package:todo_app2/core/theming/colors.dart';
@@ -25,18 +26,19 @@ class SignWith extends StatelessWidget {
                 side: const BorderSide(
                   color: AppColors.primaryColor,
                 ),
-                borderRadius: BorderRadius.circular(4),
+                borderRadius: BorderRadius.circular(4.r),
               )),
           child: Padding(
-              padding: const EdgeInsets.symmetric(vertical: 12),
+              padding: EdgeInsets.symmetric(vertical: 12.h),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   SvgPicture.asset(image),
-                  const Gap(10),
+                  Gap(10.w),
                   Text(
                     text,
-                    style: AppStyles.styleLatoReguler16(context),
+                    style: AppStyles.styleLatoReguler16(context)
+                        .copyWith(fontSize: 16.sp),
                   )
                 ],
               ))),

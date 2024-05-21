@@ -90,9 +90,9 @@ class _TaskEditingViewState extends State<TaskEditingView> {
                   TaskEditingItem(
                       icon: AppIcons.tag,
                       text: 'Task Category',
-                      categoryIconData: widget.task.category.iconCodePoint,
-                      color: widget.task.category.color,
-                      categoryText: widget.task.category.categoryName,
+                      categoryIconData: widget.task.category!.iconCodePoint,
+                      color: widget.task.category!.color,
+                      categoryText: widget.task.category!.categoryName,
                       edit: () async {
                         await editCategory(
                             context: context,

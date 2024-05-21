@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:gap/gap.dart';
@@ -32,33 +33,48 @@ class TaskEditingItem extends StatelessWidget {
             children: [
               icon,
               const Gap(10),
-              Text(
-                '$text :',
-                style: AppStyles.styleLatoReguler16(context),
+              Flexible(
+                flex: 2,
+                child: FittedBox(
+                  fit: BoxFit.scaleDown,
+                  child: Text(
+                    '$text :',
+                    style: AppStyles.styleLatoReguler16(context),
+                  ),
+                ),
               ),
               const Spacer(),
-              Container(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-                decoration: BoxDecoration(
-                  color: AppColors.secondryColor,
-                  borderRadius: BorderRadius.circular(6),
-                ),
-                child: Row(
-                  children: [
-                    categoryIconData == null
-                        ? const SizedBox()
-                        : Icon(
-                            IconData(categoryIconData!,
-                                fontFamily: 'MaterialIcons'),
-                            color: Color(color ?? 0xfffffff),
-                          ),
-                    const Gap(10),
-                    Text(
-                      categoryText ?? 'Select Category',
-                      style: AppStyles.styleLatoReguler12(context),
-                    )
-                  ],
+              Flexible(
+                flex: 3,
+                child: Container(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                  decoration: BoxDecoration(
+                    color: AppColors.secondryColor,
+                    borderRadius: BorderRadius.circular(6),
+                  ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      categoryIconData == null
+                          ? const SizedBox()
+                          : Flexible(
+                              child: Icon(
+                                IconData(categoryIconData!,
+                                    fontFamily: 'MaterialIcons'),
+                                color: Color(color ?? 0xfffffff),
+                              ),
+                            ),
+                      const Gap(10),
+                      Flexible(
+                        flex: 2,
+                        child: Text(
+                          categoryText ?? 'Select Category',
+                          style: AppStyles.styleLatoReguler12(context),
+                        ),
+                      )
+                    ],
+                  ),
                 ),
               )
             ],

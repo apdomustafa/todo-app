@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:todo_app2/core/theming/colors.dart';
 import 'package:todo_app2/core/theming/styles.dart';
 
@@ -15,10 +16,10 @@ class ActiveCustomButton extends StatelessWidget {
         style: TextButton.styleFrom(
             backgroundColor: AppColors.primaryColor,
             shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(4),
+              borderRadius: BorderRadius.circular(4.r),
             )),
         child: Padding(
-          padding: const EdgeInsets.symmetric(vertical: 12),
+          padding: EdgeInsets.symmetric(vertical: 12.h),
           child: Text(
             text,
             style: AppStyles.styleLatoReguler16(context),
@@ -38,10 +39,10 @@ class NotActiveCustomButton extends StatelessWidget {
         style: TextButton.styleFrom(
             backgroundColor: AppColors.primaryColor.withOpacity(.50),
             shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(4),
+              borderRadius: BorderRadius.circular(4.r),
             )),
         child: Padding(
-          padding: const EdgeInsets.symmetric(vertical: 12),
+          padding: EdgeInsets.symmetric(vertical: 12.h),
           child: Text(
             text,
             style: AppStyles.styleLatoReguler16(context),

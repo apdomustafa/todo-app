@@ -31,6 +31,13 @@ class _BottomSheetContentState extends State<BottomSheetContent> {
   }
 
   @override
+  void dispose() {
+    titleController.dispose();
+    descriptionController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
       child: Container(
@@ -57,12 +64,12 @@ class _BottomSheetContentState extends State<BottomSheetContent> {
                 ),
               ),
               const Gap(14),
-              const Gap(13),
               AddTitleTextField(
                 hint: 'Title',
                 controller: titleController,
                 globalKey: titleTextFieldKey,
               ),
+              const Gap(14),
               AddDescriptionTextField(
                 hint: 'Description',
                 controller: descriptionController,

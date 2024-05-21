@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 abstract class AppFontSize {
   static double getResponsiveFontSize(BuildContext context, double fontSize) {
     double responsiveSize = _getscaleFactor(context) * fontSize;
-    double minSize = fontSize * 0.8;
-    double maxSize = fontSize * 1.2;
+    double minSize = fontSize * 0.1;
+    double maxSize = fontSize * 1.8;
     return responsiveSize.clamp(minSize, maxSize);
   }
 

@@ -13,8 +13,7 @@ import 'package:todo_app2/features/home/views/widgets/edit_title_text_field.dart
 Future<void> editTaskTitle(BuildContext context, TaskModule task) async {
   final TextEditingController titleController = TextEditingController();
   final TextEditingController descriptionController = TextEditingController();
-  final titleKey = GlobalKey<FormState>();
-  final descriptionKey = GlobalKey<FormState>();
+
   await showDialog(
       context: context,
       builder: (context) {

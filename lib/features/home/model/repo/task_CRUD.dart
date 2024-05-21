@@ -27,4 +27,14 @@ abstract class TaskCRUD {
   List<CategoryModule> readCategories();
 
   void addInitialCategories(List<CategoryModule> initailCategories);
+
+  void addTasks(List<TaskModule> tasks);
+
+  void addCompletedTasks(List<TaskModule> completedTasks);
+
+  Future<int> clearTasks();
+
+  Future<int> clearCompletedTasks();
+
+  Future<int> clearCategories();
 }

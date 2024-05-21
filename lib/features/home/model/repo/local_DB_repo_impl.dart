@@ -95,4 +95,29 @@ class Hive_DB_RepoImpl extends TaskCRUD {
             TaskModule.formatDate(task.date) == TaskModule.formatDate(date))
         .toList();
   }
+
+  @override
+  void addCompletedTasks(List<TaskModule> completedTasks) {
+    completedTaskBox.addAll(completedTasks);
+  }
+
+  @override
+  void addTasks(List<TaskModule> tasks) {
+    taskBox.addAll(tasks);
+  }
+
+  @override
+  Future<int> clearCategories() async {
+    return await categoryBox.clear();
+  }
+
+  @override
+  Future<int> clearCompletedTasks() async {
+    return await completedTaskBox.clear();
+  }
+
+  @override
+  Future<int> clearTasks() async {
+    return await taskBox.clear();
+  }
 }

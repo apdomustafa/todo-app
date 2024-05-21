@@ -12,13 +12,7 @@ import 'package:todo_app2/features/home/views/add_categroy_view.dart';
 import 'package:todo_app2/features/home/views/widgets/category_picker_items.dart';
 import 'package:todo_app2/features/login_create_feature/views/widgets/active_not_active_customButton.dart';
 
-void chooseCategory(BuildContext context) async {
-  bool? userstatus = await AppUserInfo.isFirstTime();
-  if (userstatus == true) {
-    CategoryModule.addInitialCategories(context);
-    AppUserInfo.notFirstTime();
-  }
-
+void chooseCategory(BuildContext context) {
   CategoryModule.getCategories(context);
 
   showDialog(

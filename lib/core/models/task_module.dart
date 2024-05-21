@@ -1,8 +1,10 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hive/hive.dart';
 import 'package:intl/intl.dart';
 import 'package:todo_app2/core/DI.dart';
+import 'package:todo_app2/core/helpers/methods/app_user_info.dart';
 import 'package:todo_app2/core/theming/colors.dart';
 import 'package:todo_app2/features/home/view_model/index_bloc/task_management_bloc.dart';
 
@@ -26,7 +28,7 @@ class TaskModule extends HiveObject {
   int priority;
 
   @HiveField(6)
-  CategoryModule category = getIt<CategoryModule>();
+  CategoryModule? category = getIt<CategoryModule>();
 
   void taskClear() {
     title = null;
@@ -38,7 +40,12 @@ class TaskModule extends HiveObject {
   }
 
   TaskModule(
-      {this.title, this.date, this.description, this.priority = 1, this.time});
+      {this.title,
+      this.date,
+      this.description,
+      this.priority = 1,
+      this.time,
+      this.category});
   factory TaskModule.copy(TaskModule task) {
     TaskModule resultTask = TaskModule();
     resultTask.title = task.title;
@@ -48,6 +55,31 @@ class TaskModule extends HiveObject {
     resultTask.priority = task.priority;
     resultTask.category = task.category;
     return resultTask;
+  }
+
+  // Factory method to create TaskModule object from JSON
+  factory TaskModule.fromJson(Map<String, dynamic> json) {
+    return TaskModule(
+      title: json['title'],
+      description: json['description'],
+      date: json['date'],
+      time: json['time'],
+      priority: json['priority'] ?? 1, // Default value if 'priority' is missing
+      category: CategoryModule.fromJson(
+          json['category']), // Deserialize 'category' field
+    );
+  }
+
+  // Convert TaskModule object to JSON
+  Map<String, dynamic> toJson() {
+    return {
+      'title': title,
+      'description': description,
+      'date': date,
+      'time': time,
+      'priority': priority,
+      'category': category!.toJson(), // Serialize 'category' field
+    };
   }
 
   String getDateAndTime() {
@@ -142,6 +174,23 @@ class CategoryModule extends HiveObject {
 
   CategoryModule({this.categoryName, this.iconCodePoint, this.color});
 
+  factory CategoryModule.fromJson(Map<String, dynamic> json) {
+    return CategoryModule(
+      categoryName: json['categoryName'],
+      iconCodePoint: json['iconCodePoint'],
+      color: json['color'],
+    );
+  }
+
+  // Convert CategoryModule object to JSON
+  Map<String, dynamic> toJson() {
+    return {
+      'categoryName': categoryName,
+      'iconCodePoint': iconCodePoint,
+      'color': color,
+    };
+  }
+
   void saveTaskCategory() {
     getIt<CategoryModule>().categoryName = categoryName;
     getIt<CategoryModule>().color = color;
@@ -154,9 +203,12 @@ class CategoryModule extends HiveObject {
     color = null;
   }
 
-  static void addInitialCategories(BuildContext context) {
-    BlocProvider.of<TaskManagementBloc>(context)
-        .add(InitialCategoriesAdded(_categories));
+  static Future<void> addInitialCategories(BuildContext context) async {
+    bool isFirstTime = await AppUserInfo.isFirstTime();
+    if (isFirstTime) {
+      BlocProvider.of<TaskManagementBloc>(context)
+          .add(InitialCategoriesAdded(_categories));
+    }
   }
 
   static void getCategories(BuildContext context) {

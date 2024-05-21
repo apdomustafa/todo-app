@@ -1,4 +1,6 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gap/gap.dart';
 import 'package:todo_app2/core/theming/styles.dart';
@@ -37,12 +39,14 @@ class _CalenderViewState extends State<CalenderView> {
             ),
           ),
           const Gap(16),
-          CalenderWidget(
-            onDateChage: (date) {
-              setState(() {
-                this.date = date;
-              });
-            },
+          Flexible(
+            child: CalenderWidget(
+              onDateChage: (date) {
+                setState(() {
+                  this.date = date;
+                });
+              },
+            ),
           ),
           const Gap(20),
           ChooseTodeyOrCompleted(

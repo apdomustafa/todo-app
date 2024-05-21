@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
 import 'package:intl/intl.dart';
 import 'package:page_transition/page_transition.dart';
@@ -63,6 +64,7 @@ class _TaskItemState extends State<TaskItem> {
         ),
         child: Container(
           width: double.infinity,
+          padding: const EdgeInsets.only(right: 4),
           margin: const EdgeInsets.only(bottom: 16),
           decoration: BoxDecoration(
             color: AppColors.secondryColor,
@@ -79,81 +81,97 @@ class _TaskItemState extends State<TaskItem> {
                       widget.onRadioSelected(widget.index);
                     }),
               ),
-              Padding(
-                padding: const EdgeInsets.only(left: 12, top: 12, right: 12),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      widget.item.title!,
-                      style: AppStyles.styleLatoReguler16(context),
-                    ),
-                    Text(
-                      widget.item.getDateAndTime(),
-                      style: AppStyles.styleLatoReguler14(context).copyWith(
-                        color: AppColors.greyColor,
+              Expanded(
+                flex: 3,
+                child: Padding(
+                  padding: EdgeInsets.only(left: 12.w, top: 12.h, right: 12.w),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        widget.item.title!,
+                        style: AppStyles.styleLatoReguler16(context),
                       ),
-                    ),
-                  ],
+                      Text(
+                        widget.item.getDateAndTime(),
+                        style: AppStyles.styleLatoReguler14(context).copyWith(
+                          color: AppColors.greyColor,
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               ),
-              const Spacer(),
-              widget.item.category.categoryName == null
+              // const Spacer(),
+              widget.item.category!.categoryName == null
                   ? const SizedBox()
-                  : Align(
-                      alignment: Alignment.bottomCenter,
+                  : Flexible(
+                      flex: 2,
                       child: Row(
                         children: [
-                          Container(
-                            height: 29,
-                            padding: const EdgeInsets.symmetric(horizontal: 4),
-                            decoration: BoxDecoration(
-                              color:
-                                  getLighterColor(widget.item.category.color!),
-                              borderRadius: BorderRadius.circular(4),
-                            ),
-                            child: Center(
+                          Flexible(
+                            flex: 2,
+                            child: Container(
+                              height: 29,
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 4),
+                              decoration: BoxDecoration(
+                                color: getLighterColor(
+                                    widget.item.category!.color!),
+                                borderRadius: BorderRadius.circular(4),
+                              ),
                               child: Row(
                                 children: [
-                                  Icon(
-                                    IconData(
-                                        widget.item.category.iconCodePoint!,
-                                        fontFamily:
-                                            'MaterialIcons'), // Icon point value for "home" icon
+                                  Flexible(
+                                    child: Icon(
+                                      IconData(
+                                          widget.item.category!.iconCodePoint!,
+                                          fontFamily:
+                                              'MaterialIcons'), // Icon point value for "home" icon
 
-                                    color: getDarkerColor(
-                                        widget.item.category.color!),
+                                      color: getDarkerColor(
+                                          widget.item.category!.color!),
+                                    ),
                                   ),
-                                  Text(
-                                    widget.item.category.categoryName!,
-                                    style: AppStyles.styleLatoReguler12(context)
-                                        .copyWith(
-                                      color: AppColors.labelColor,
+                                  const Gap(8),
+                                  Flexible(
+                                    flex: 2,
+                                    child: Text(
+                                      widget.item.category!.categoryName!,
+                                      overflow: TextOverflow.ellipsis,
+                                      style:
+                                          AppStyles.styleLatoReguler12(context)
+                                              .copyWith(
+                                        color: AppColors.labelColor,
+                                      ),
                                     ),
                                   ),
                                 ],
                               ),
                             ),
                           ),
-                          Container(
-                            height: 29,
-                            margin: const EdgeInsets.symmetric(horizontal: 4),
-                            decoration: BoxDecoration(
-                              color: AppColors.secondryColor,
-                              borderRadius: BorderRadius.circular(4),
-                              border: Border.all(color: AppColors.primaryColor),
+                          Flexible(
+                            child: Container(
+                              height: 29,
+                              margin: const EdgeInsets.symmetric(horizontal: 4),
+                              decoration: BoxDecoration(
+                                color: AppColors.secondryColor,
+                                borderRadius: BorderRadius.circular(4),
+                                border:
+                                    Border.all(color: AppColors.primaryColor),
+                              ),
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceEvenly,
+                                children: [
+                                  const Icon(
+                                    Icons.bookmark,
+                                    size: 20,
+                                  ),
+                                  Text(widget.item.priority.toString()),
+                                ],
+                              ),
                             ),
-                            child: Center(
-                                child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                              children: [
-                                const Icon(
-                                  Icons.bookmark,
-                                  size: 20,
-                                ),
-                                Text(widget.item.priority.toString()),
-                              ],
-                            )),
                           )
                         ],
                       ),

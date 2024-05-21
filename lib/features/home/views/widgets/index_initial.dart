@@ -20,11 +20,13 @@ class IndexInitial extends StatelessWidget {
           ),
           const Gap(10),
           Text(
+            textAlign: TextAlign.center,
             'What do you want to do today?',
             style: AppStyles.styleLatoReguler20(context),
           ),
           const Gap(10),
           Text(
+            textAlign: TextAlign.center,
             'Tap + to add your tasks',
             style: AppStyles.styleLatoReguler20(context),
           ),

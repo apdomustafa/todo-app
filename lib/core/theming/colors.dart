@@ -17,6 +17,7 @@ abstract class AppColors {
   static const Color darkActionColor = Color(0xFFD3D3D3);
   static const Color defultIndicatorColor = Color(0xFFAFAFAF);
   static const Color textFieldColor = Color(0xFF1D1D1D);
+  static const Color timerColor = Color(0xFF555555);
 
   static const Color color1 = Colors.blue;
   static const Color color2 = Colors.green;

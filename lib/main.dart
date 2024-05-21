@@ -4,31 +4,57 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:todo_app2/core/DI.dart';
 import 'package:todo_app2/core/helpers/methods/app_user_info.dart';
+import 'package:todo_app2/core/models/task_module.dart';
 import 'package:todo_app2/core/services/DB/dataBase.dart';
+import 'package:todo_app2/core/services/background_services/background_services.dart';
+import 'package:todo_app2/core/services/network/firebase.dart';
 import 'package:todo_app2/core/theming/colors.dart';
+import 'package:todo_app2/features/home/model/repo/local_DB_repo_impl.dart';
+import 'package:todo_app2/features/home/model/repo/task_CRUD.dart';
 import 'package:todo_app2/features/home/view_model/calender_bloc/calender_bloc.dart';
-import 'package:todo_app2/features/home/view_model/calender_bloc/calender_observer.dart';
 import 'package:todo_app2/features/home/view_model/index_bloc/task_management_bloc.dart';
-import 'package:todo_app2/features/home/views/home_view.dart';
 import 'package:todo_app2/features/login_create_feature/view_model/login_bloc/login_bloc.dart';
 import 'package:todo_app2/features/login_create_feature/view_model/register_bloc/register_bloc.dart';
 import 'package:todo_app2/features/splashFeature/views/splash_view.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:workmanager/workmanager.dart';
 
 void main() async {
-  // WidgetsFlutterBinding.ensureInitialized();
-  // await Firebase.initializeApp(
-  //   options: const FirebaseOptions(
-  //       apiKey: "AIzaSyDCPcZ_udKbrls9bu15LbVuj147FRuYpYU",
-  //       appId: "1:440556450736:web:2a1c8dc3a32e10cc8bdc75",
-  //       messagingSenderId: "440556450736",
-  //       projectId: "todo-1ed2c"),
-  // );
-  AppUserInfo.userInit();
-  await DB.initDB();
+  FirebaseService.init();
   setup();
-  Bloc.observer = CalenderObserver();
+  await DB.initDB();
+  AppUserInfo.userInit();
+  Workmanager().initialize(
+      callbackDispatcher, // The top level function, aka callbackDispatcher
+      isInDebugMode:
+          true // If enabled it will post a notification whenever the task is running. Handy for debugging tasks
+      );
+  Workmanager().registerPeriodicTask(
+    "1",
+    "syncTask",
+    initialDelay: const Duration(minutes: 2),
+    frequency: const Duration(minutes: 15), // Minimum interval is 15 minutes
+  );
   runApp(const TodoApp());
+}
+
+@pragma(
+    'vm:entry-point') // Mandatory if the App is obfuscated or using Flutter 3.1+
+void callbackDispatcher() {
+  Workmanager().executeTask((task, inputData) async {
+    await FirebaseService.init();
+    setup();
+    await DB.initDB();
+    TaskCRUD taskCRUD = Hive_DB_RepoImpl();
+    FirebaseService firebaseService = FirebaseService();
+    List<TaskModule> tasks = taskCRUD.readtasks();
+    List<TaskModule> completedTasks = taskCRUD.readCompletedTasks();
+    List<CategoryModule> categories = taskCRUD.readCategories();
+    await DB.dispose();
+    await firebaseService.sendAllTasks(
+        tasks: tasks, completedTasks: completedTasks, categories: categories);
+    return Future.value(true);
+  });
 }
 
 class TodoApp extends StatelessWidget {
@@ -52,7 +78,7 @@ class TodoApp extends StatelessWidget {
         ),
       ],
       child: ScreenUtilInit(
-          designSize: const Size(375, 690),
+          designSize: const Size(375, 812),
           minTextAdapt: true,
           splitScreenMode: true,
           builder: (_, child) {
@@ -60,7 +86,7 @@ class TodoApp extends StatelessWidget {
               theme: ThemeData.dark().copyWith(
                 primaryColor: AppColors.primaryColor,
               ),
-              home: const HomeView(),
+              home: const SplashView(),
             );
           }),
     );

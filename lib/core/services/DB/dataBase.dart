@@ -11,4 +11,8 @@ class DB {
     await Hive.openBox<TaskModule>(kCompletedTaskBox);
     await Hive.openBox<CategoryModule>(kCategoryBox);
   }
+
+  static Future<void> dispose() async {
+    await Hive.close();
+  }
 }

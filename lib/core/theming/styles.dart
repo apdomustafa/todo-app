@@ -18,9 +18,18 @@ abstract class AppStyles {
 
   static TextStyle styleLatoBold12(BuildContext context) {
     return TextStyle(
-      color: AppColors.labelColor,
+      color: AppColors.labelColor.withOpacity(.87),
       fontWeight: FontWeight.bold,
       fontSize: AppFontSize.getResponsiveFontSize(context, 12),
+      fontFamily: AppFonts.LatoFont,
+    );
+  }
+
+  static TextStyle styleLatoBold14(BuildContext context) {
+    return TextStyle(
+      color: AppColors.labelColor.withOpacity(.87),
+      fontWeight: FontWeight.bold,
+      fontSize: AppFontSize.getResponsiveFontSize(context, 14),
       fontFamily: AppFonts.LatoFont,
     );
   }
@@ -183,6 +192,15 @@ abstract class AppStyles {
       color: AppColors.labelColor.withOpacity(0.87),
       fontWeight: FontWeight.w500,
       fontSize: AppFontSize.getResponsiveFontSize(context, 20),
+      fontFamily: AppFonts.LatoFont,
+    );
+  }
+
+  static TextStyle styleLatoMeduim40(BuildContext context) {
+    return TextStyle(
+      color: AppColors.labelColor.withOpacity(0.87),
+      fontWeight: FontWeight.w500,
+      fontSize: AppFontSize.getResponsiveFontSize(context, 40),
       fontFamily: AppFonts.LatoFont,
     );
   }

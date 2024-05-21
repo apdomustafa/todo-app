@@ -1,4 +1,6 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:gap/gap.dart';
 import 'package:todo_app2/core/theming/colors.dart';
 import 'package:todo_app2/core/theming/styles.dart';
@@ -22,26 +24,32 @@ class TitleAndDescriptionEdit extends StatelessWidget {
               value: true, groupValue: false, onChanged: (value) {}),
         ),
         const Gap(8),
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              task.title!,
-              style: AppStyles.styleLatoReguler20(context),
-            ),
-            Text(
-              task.description!,
-              style: AppStyles.styleLatoReguler16(context).copyWith(
-                color: AppColors.greyColor,
+        Expanded(
+          flex: 4,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                task.title!,
+                style: AppStyles.styleLatoReguler20(context),
               ),
-            ),
-          ],
+              Text(
+                task.description!,
+                style: AppStyles.styleLatoReguler16(context).copyWith(
+                  color: AppColors.greyColor,
+                ),
+              ),
+            ],
+          ),
         ),
         const Spacer(),
-        IconButton(
-          onPressed: edit,
-          icon: const Icon(Icons.edit_note),
-          color: AppColors.labelColor.withOpacity(0.87),
+        Expanded(
+          flex: 1,
+          child: IconButton(
+            onPressed: edit,
+            icon: const Icon(Icons.edit_note),
+            color: AppColors.labelColor.withOpacity(0.87),
+          ),
         )
       ],
     );

@@ -60,6 +60,12 @@ dependencies:
   interpolate_animated: ^0.0.1
   intl: ^0.18.1
   horizontal_week_calendar: ^0.0.15
+  circular_countdown_timer: ^0.2.3
+  fl_chart: ^0.68.0
+  cloud_firestore: ^4.17.3
+  flutter_background_service: ^5.0.5
+  workmanager: ^0.5.2
+  easy_date_timeline: ^1.0.3
 
 dev_dependencies:
   flutter_test:

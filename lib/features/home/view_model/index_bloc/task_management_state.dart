@@ -5,6 +5,10 @@ sealed class TaskManagementState {}
 
 final class TaskManagementInitial extends TaskManagementState {}
 
+final class TaskManagementLoading extends TaskManagementState {}
+
+final class TaskManagementDissmisLoading extends TaskManagementState {}
+
 final class CategoriesGettingSuccessState extends TaskManagementState {
   final List<CategoryModule> categories;
 

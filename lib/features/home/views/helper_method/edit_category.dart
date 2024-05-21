@@ -18,11 +18,6 @@ Future<void> editCategory(
     {required BuildContext context,
     required void Function(CategoryModule categoryModule) getCategory}) async {
   late CategoryModule selectedCategory;
-  bool? userstatus = await AppUserInfo.isFirstTime();
-  if (userstatus == true) {
-    CategoryModule.addInitialCategories(context);
-    AppUserInfo.notFirstTime();
-  }
   CategoryModule.getCategories(context);
 
   await showDialog(

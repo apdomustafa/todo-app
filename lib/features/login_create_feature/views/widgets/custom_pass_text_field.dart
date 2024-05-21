@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:todo_app2/core/theming/colors.dart';
 import 'package:todo_app2/core/theming/icons.dart';
 
@@ -24,6 +25,8 @@ class _CustomPassTextFieldState extends State<CustomPassTextField> {
         widget.onchange != null ? widget.onchange!(value, context) : null;
       },
       decoration: InputDecoration(
+          contentPadding:
+              EdgeInsets.symmetric(horizontal: 12.w, vertical: 12.h),
           hintText: '••••••••••••••••',
           hintStyle: const TextStyle(),
           suffixIcon: IconButton(

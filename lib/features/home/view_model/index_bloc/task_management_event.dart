@@ -71,3 +71,13 @@ class CompletedTaskNeeded extends TaskManagementEvent {
 
   CompletedTaskNeeded({required this.index});
 }
+
+class SendAllTasksToServer extends TaskManagementEvent {
+  SendAllTasksToServer();
+}
+
+class AllTasksFromServerToDBRead extends TaskManagementEvent {}
+
+class InitialCategoriesFromServerToDBRead extends TaskManagementEvent {}
+
+class InitialCategoiresFormServerToDBAdded extends TaskManagementEvent {}

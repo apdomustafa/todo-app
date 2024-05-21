@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:todo_app2/core/DI.dart';
 import 'package:todo_app2/core/helpers/constants.dart';
 import 'package:todo_app2/core/models/task_module.dart';
@@ -26,10 +27,11 @@ class _CategoryPickerItemsState extends State<CategoryPickerItems> {
             return SizedBox(
               height: 224,
               child: GridView(
-                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: 3,
-                    mainAxisSpacing: 16,
-                    crossAxisSpacing: 49),
+                    childAspectRatio: 2 / 3,
+                    mainAxisSpacing: 16.h,
+                    crossAxisSpacing: 49.w),
                 children: List.generate(state.categories.length, (index) {
                   return InkWell(
                     onTap: () {
