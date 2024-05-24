@@ -42,6 +42,7 @@ class AllTasks extends StatelessWidget {
         ),
         SliverToBoxAdapter(
           child: TaskItems(
+            isSrollable: false,
             items: tasks,
             onRadioSelected: (index) {
               BlocProvider.of<TaskManagementBloc>(context)
@@ -80,6 +81,7 @@ class AllTasks extends StatelessWidget {
         ),
         SliverToBoxAdapter(
           child: TaskItems(
+              isSrollable: false,
               items: completedTasks,
               onRadioSelected: (index) {
                 BlocProvider.of<TaskManagementBloc>(context)

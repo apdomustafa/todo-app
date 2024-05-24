@@ -28,7 +28,6 @@ class _CustomButtonState extends State<CustomButton> {
           widget.onpress();
         },
         style: TextButton.styleFrom(
-            padding: EdgeInsets.zero,
             backgroundColor:
                 widget.isActive ? widget.color : Colors.transparent,
             shape: RoundedRectangleBorder(
@@ -39,14 +38,11 @@ class _CustomButtonState extends State<CustomButton> {
                       widget.isActive ? BorderStyle.none : BorderStyle.solid),
               borderRadius: BorderRadius.circular(4),
             )),
-        child: Padding(
-          padding: const EdgeInsets.symmetric(vertical: 12),
-          child: FittedBox(
-            child: Text(
-              widget.text,
-              style: AppStyles.styleLatoReguler16(context)
-                  .copyWith(color: widget.textColor),
-            ),
+        child: FittedBox(
+          child: Text(
+            widget.text,
+            style: AppStyles.styleLatoReguler16(context)
+                .copyWith(color: widget.textColor),
           ),
         ));
   }

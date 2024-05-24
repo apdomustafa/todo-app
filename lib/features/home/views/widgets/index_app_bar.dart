@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:todo_app2/core/theming/assets.dart';
 import 'package:todo_app2/core/theming/colors.dart';
 import 'package:todo_app2/core/theming/styles.dart';
 
@@ -16,11 +18,8 @@ class IndexAppBar extends StatelessWidget {
           style: AppStyles.styleLatoReguler20(context),
         ),
         const CircleAvatar(
-          backgroundColor: Colors.white,
-          child: Icon(
-            Icons.person,
-            color: AppColors.greyColor,
-          ),
+          radius: 24,
+          backgroundImage: AssetImage(Assets.imageUserProfile),
         )
       ],
     );

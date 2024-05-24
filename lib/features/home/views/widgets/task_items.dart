@@ -7,9 +7,11 @@ class TaskItems extends StatefulWidget {
       {super.key,
       required this.items,
       required this.onRadioSelected,
-      required this.onItemRemoved});
+      required this.onItemRemoved,
+      required this.isSrollable});
   final List<TaskModule> items;
   final void Function(int index) onRadioSelected, onItemRemoved;
+  final bool isSrollable;
 
   @override
   State<TaskItems> createState() => _TaskItemsState();
@@ -21,7 +23,9 @@ class _TaskItemsState extends State<TaskItems> {
     return SizedBox(
       child: ListView.builder(
           shrinkWrap: true,
-          physics: const NeverScrollableScrollPhysics(),
+          physics: widget.isSrollable
+              ? const BouncingScrollPhysics()
+              : const NeverScrollableScrollPhysics(),
           itemCount: widget.items.length,
           itemBuilder: (context, index) {
             return TaskItem(

@@ -5,14 +5,14 @@ sealed class CalenderState {}
 
 final class CalenderInitialState extends CalenderState {}
 
-class CalenderTasksGettingSuccessState extends CalenderState {
+class TasksGettingSuccessState extends CalenderState {
   final List<TaskModule> tasks;
 
-  CalenderTasksGettingSuccessState(this.tasks);
+  TasksGettingSuccessState(this.tasks);
 }
 
-class CalenderCompletedTasksGettingSuccessState extends CalenderState {
+class CalenderCompletedAllTasksGettingSuccessState extends CalenderState {
   final List<TaskModule> tasks;
 
-  CalenderCompletedTasksGettingSuccessState(this.tasks);
+  CalenderCompletedAllTasksGettingSuccessState(this.tasks);
 }

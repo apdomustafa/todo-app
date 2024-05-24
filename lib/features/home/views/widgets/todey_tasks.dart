@@ -40,6 +40,7 @@ class TodeyTasks extends StatelessWidget {
               // BlocProvider.of<CalenderBloc>(context).add(CalenderTaskDeletedCompletedAdded(index: index ));
             },
             onItemRemoved: (int index) {},
+            isSrollable: false,
           ),
         ),
         const SliverToBoxAdapter(

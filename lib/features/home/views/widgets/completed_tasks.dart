@@ -9,10 +9,12 @@ class CompletedTasks extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<TaskManagementBloc, TaskManagementState>(
-        buildWhen: (previous, current) => current is TasksGettingSuccessState,
+        buildWhen: (previous, current) =>
+            current is AllTasksGettingSuccessState,
         builder: (context, state) {
-          if (state is TasksGettingSuccessState) {
+          if (state is AllTasksGettingSuccessState) {
             return TaskItems(
+              isSrollable: true,
               items: state.completedTasks,
               onRadioSelected: (int index) {
                 BlocProvider.of<TaskManagementBloc>(context)

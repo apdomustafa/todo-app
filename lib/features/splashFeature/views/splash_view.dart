@@ -6,6 +6,7 @@ import 'package:gap/gap.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:todo_app2/core/helpers/constants.dart';
+import 'package:todo_app2/core/helpers/methods/app_user_info.dart';
 import 'package:todo_app2/core/theming/assets.dart';
 import 'package:todo_app2/core/theming/colors.dart';
 import 'package:todo_app2/core/theming/styles.dart';
@@ -88,7 +89,7 @@ class _SplashViewState extends State<SplashView> with TickerProviderStateMixin {
 
   void goToNextScreen() async {
     prefs = await SharedPreferences.getInstance();
-    bool? status = prefs.getBool(kUserSignin);
+    bool? status = await AppUserInfo.isSignIn();
     Widget nextScreen = await getTransition(status);
     naviate(nextScreen);
   }

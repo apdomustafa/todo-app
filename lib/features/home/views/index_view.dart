@@ -12,6 +12,7 @@ import 'package:todo_app2/features/home/views/widgets/index_app_bar.dart';
 import 'package:todo_app2/features/home/views/widgets/index_initial.dart';
 import 'package:todo_app2/features/home/views/widgets/task_item.dart';
 import 'package:todo_app2/features/home/views/widgets/all_tasks.dart';
+import 'package:workmanager/workmanager.dart';
 
 class IndexView extends StatefulWidget {
   const IndexView({super.key});
@@ -24,15 +25,23 @@ class _IndexViewState extends State<IndexView> {
   @override
   void initState() {
     super.initState();
-    CategoryModule.addInitialCategories(context);
-    saveBackupToDateBase();
+    initDate();
   }
 
-  void initDate() async {}
+  void initDate() async {
+    Workmanager().registerPeriodicTask(
+      "1",
+      "syncTask",
+      initialDelay: const Duration(minutes: 2),
+      frequency: const Duration(minutes: 15), // Minimum interval is 15 minutes
+    );
+    CategoryModule.addInitialCategories(context);
+    saveBackupLocaly();
+  }
 
-  Future<void> saveBackupToDateBase() async {
-    bool isFirstTime = await AppUserInfo.isFirstTime();
-    if (isFirstTime) {
+  Future<void> saveBackupLocaly() async {
+    bool? isFirstTime = await AppUserInfo.isFirstTime();
+    if (isFirstTime == true) {
       BlocProvider.of<TaskManagementBloc>(context)
           .add(AllTasksFromServerToDBRead());
       AppUserInfo.update(userFirstTime: false);
@@ -59,10 +68,10 @@ class _IndexViewState extends State<IndexView> {
               }
             },
             buildWhen: (previous, current) =>
-                current is TasksGettingSuccessState ||
+                current is AllTasksGettingSuccessState ||
                 current is TaskManagementInitial,
             builder: (BuildContext context, state) {
-              if (state is TasksGettingSuccessState) {
+              if (state is AllTasksGettingSuccessState) {
                 return AllTasks(
                   tasks: state.tasks,
                   completedTasks: state.completedTasks,

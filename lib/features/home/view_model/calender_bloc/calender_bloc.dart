@@ -17,7 +17,7 @@ class CalenderBloc extends Bloc<CalenderEvent, CalenderState> {
       if (tasks.isEmpty) {
         emit(CalenderInitialState());
       } else {
-        emit(CalenderTasksGettingSuccessState(tasks));
+        emit(TasksGettingSuccessState(tasks));
       }
     });
 
@@ -27,7 +27,7 @@ class CalenderBloc extends Bloc<CalenderEvent, CalenderState> {
       if (tasks.isEmpty) {
         emit(CalenderInitialState());
       } else {
-        emit(CalenderCompletedTasksGettingSuccessState(tasks));
+        emit(CalenderCompletedAllTasksGettingSuccessState(tasks));
       }
     });
 
@@ -38,7 +38,7 @@ class CalenderBloc extends Bloc<CalenderEvent, CalenderState> {
       if (tasks.isEmpty) {
         emit(CalenderInitialState());
       } else {
-        emit(CalenderTasksGettingSuccessState(tasks));
+        emit(TasksGettingSuccessState(tasks));
       }
     });
 
@@ -46,7 +46,7 @@ class CalenderBloc extends Bloc<CalenderEvent, CalenderState> {
       taskCRUD = Hive_DB_RepoImpl();
       taskCRUD.addTask(taskCRUD.readCompletedTask(event.index)!);
       taskCRUD.deleteCompletedTask(event.index);
-      emit(CalenderCompletedTasksGettingSuccessState(
+      emit(CalenderCompletedAllTasksGettingSuccessState(
           taskCRUD.readCompletedTasksWithDate(event.date)));
     });
 
@@ -57,7 +57,7 @@ class CalenderBloc extends Bloc<CalenderEvent, CalenderState> {
       if (tasks.isEmpty) {
         emit(CalenderInitialState());
       } else {
-        emit(CalenderTasksGettingSuccessState(tasks));
+        emit(TasksGettingSuccessState(tasks));
       }
     });
 
@@ -66,7 +66,7 @@ class CalenderBloc extends Bloc<CalenderEvent, CalenderState> {
       taskCRUD.addCompletedTask(taskCRUD.readTask(event.index)!);
       taskCRUD.deleteTask(event.index);
       var tasks = taskCRUD.readtasksWithDate(event.date);
-      emit(CalenderTasksGettingSuccessState(tasks));
+      emit(TasksGettingSuccessState(tasks));
     });
   }
 }

@@ -4,6 +4,8 @@ abstract class TaskCRUD {
   void addTask(TaskModule task);
   List<TaskModule> readtasks();
 
+  List<TaskModule> readTasksWithTitle(String title);
+
   List<TaskModule> readtasksWithDate(String date);
 
   void updateTask(int key, TaskModule task);
@@ -19,6 +21,8 @@ abstract class TaskCRUD {
   void deleteCompletedTask(int key);
 
   List<TaskModule> readCompletedTasks();
+
+  List<TaskModule> readCompletedTasksWithTitle(String title);
 
   List<TaskModule> readCompletedTasksWithDate(String date);
 

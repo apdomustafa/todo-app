@@ -81,3 +81,8 @@ class AllTasksFromServerToDBRead extends TaskManagementEvent {}
 class InitialCategoriesFromServerToDBRead extends TaskManagementEvent {}
 
 class InitialCategoiresFormServerToDBAdded extends TaskManagementEvent {}
+
+class AllTasksWithTitleNeeded extends TaskManagementEvent {
+  final String title;
+  AllTasksWithTitleNeeded(this.title);
+}

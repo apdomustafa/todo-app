@@ -22,7 +22,8 @@ class TaskModuleAdapter extends TypeAdapter<TaskModule> {
       description: fields[1] as String?,
       priority: fields[5] as int,
       time: fields[4] as String?,
-    )..category = fields[6] as CategoryModule;
+      category: fields[6] as CategoryModule?,
+    );
   }
 
   @override

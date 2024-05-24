@@ -153,7 +153,7 @@ abstract class AppStyles {
 
   static TextStyle styleLatoReguler14(BuildContext context) {
     return TextStyle(
-      color: AppColors.labelColor.withOpacity(0.87),
+      color: AppColors.greyColor,
       fontWeight: FontWeight.normal,
       fontSize: AppFontSize.getResponsiveFontSize(context, 14),
       fontFamily: AppFonts.LatoFont,

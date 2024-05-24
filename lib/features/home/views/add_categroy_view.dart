@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
 import 'package:todo_app2/core/DI.dart';
 import 'package:todo_app2/core/models/task_module.dart';
@@ -37,71 +38,79 @@ class _AddCategoryViewState extends State<AddCategoryView> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        body: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 48),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                textAlign: TextAlign.start,
-                'Create new category',
-                style: AppStyles.styleLatoBold20(context),
-              ),
-              const Gap(20),
-              Text(
-                'Category name :',
-                style: AppStyles.styleLatoReguler16(context),
-              ),
-              const Gap(16),
-              CategoryNameTF(
-                controller: _controller,
-              ),
-              const Gap(20),
-              Text(
-                'Category icon :',
-                style: AppStyles.styleLatoReguler16(context),
-              ),
-              const Gap(16),
-              _iconIsSelected
-                  ? CategoryIconWithRemove(
-                      icon: _icon,
-                      removeIcon: () {
-                        setState(() {
-                          _iconIsSelected = false;
-                        });
-                      })
-                  : ChooseIconButton(
-                      selectIcon: () {
-                        selectCategoryIcon(context, (selectedIcon) {
-                          if (selectedIcon != null) {
-                            setState(() {
+        body: SingleChildScrollView(
+          child: Padding(
+            padding: EdgeInsets.only(
+                left: 24,
+                right: 24,
+                top: 48,
+                bottom: MediaQuery.of(context).viewInsets.bottom + 48),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  textAlign: TextAlign.start,
+                  'Create new category',
+                  style: AppStyles.styleLatoBold20(context),
+                ),
+                const Gap(20),
+                Text(
+                  'Category name :',
+                  style: AppStyles.styleLatoReguler16(context),
+                ),
+                const Gap(16),
+                CategoryNameTF(
+                  controller: _controller,
+                ),
+                const Gap(20),
+                Text(
+                  'Category icon :',
+                  style: AppStyles.styleLatoReguler16(context),
+                ),
+                const Gap(16),
+                _iconIsSelected
+                    ? CategoryIconWithRemove(
+                        icon: _icon,
+                        removeIcon: () {
+                          setState(() {
+                            _iconIsSelected = false;
+                          });
+                        })
+                    : ChooseIconButton(
+                        selectIcon: () {
+                          selectCategoryIcon(context, (selectedIcon) {
+                            if (selectedIcon != null) {
                               setState(() {
-                                _iconIsSelected = true;
-                                _icon = selectedIcon;
+                                setState(() {
+                                  _iconIsSelected = true;
+                                  _icon = selectedIcon;
+                                });
                               });
-                            });
-                          }
-                        });
-                      },
-                    ),
-              const Gap(20),
-              Text(
-                'Category color :',
-                style: AppStyles.styleLatoReguler16(context),
-              ),
-              const Gap(16),
-              ColorItems(
-                selectedColor: (selectedColor) {
-                  _color = selectedColor;
-                },
-              ),
-              const Spacer(),
-              AddCategoryBottomPart(
-                addCategoryPressed: () {
-                  saveCategory(context);
-                },
-              ),
-            ],
+                            }
+                          });
+                        },
+                      ),
+                const Gap(20),
+                Text(
+                  'Category color :',
+                  style: AppStyles.styleLatoReguler16(context),
+                ),
+                const Gap(16),
+                ColorItems(
+                  selectedColor: (selectedColor) {
+                    _color = selectedColor;
+                  },
+                ),
+                SizedBox(
+                  height: 190.h,
+                ),
+                AddCategoryBottomPart(
+                  addCategoryPressed: () {
+                    saveCategory(context);
+                  },
+                ),
+              ],
+            ),
           ),
         ),
       ),

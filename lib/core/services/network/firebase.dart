@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:todo_app2/core/models/task_module.dart';
 
 class FirebaseService {
@@ -184,6 +185,74 @@ class FirebaseService {
     } catch (e) {
       print('Error fetching tasks: $e');
       rethrow;
+    }
+  }
+
+  Future<void> setUserName(String userName) async {
+    User? user = FirebaseAuth.instance.currentUser;
+    try {
+      if (user != null) {
+        String uid = user.uid;
+        await taskCollection.doc(uid).set({'userName': userName});
+      } else {
+        throw FirebaseAuthException(
+          code: 'user-not-found',
+          message: 'User is not authenticated.',
+        );
+      }
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  Future<String> getUserName() async {
+    String userName = '';
+    User? user = FirebaseAuth.instance.currentUser;
+
+    try {
+      if (user != null) {
+        String uid = user.uid;
+        DocumentSnapshot userDataSnapshot = await taskCollection.doc(uid).get();
+        if (userDataSnapshot.exists && userDataSnapshot.data() != null) {
+          Map<String, dynamic> data =
+              userDataSnapshot.data() as Map<String, dynamic>;
+          userName = data['userName'];
+        } else {
+          userName = user.displayName ?? 'user name';
+        }
+        return userName;
+      } else {
+        throw FirebaseAuthException(
+          code: 'user-not-found',
+          message: 'User is not authenticated.',
+        );
+      }
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  // void saveUserImage(File userImage){
+  //   Fire
+  // }
+
+  void logOut() async {
+    final FirebaseAuth auth = FirebaseAuth.instance;
+    final GoogleSignIn googleSignIn = GoogleSignIn();
+    User? user = auth.currentUser;
+
+    if (user != null) {
+      for (UserInfo userInfo in user.providerData) {
+        switch (userInfo.providerId) {
+          case 'google.com':
+            await googleSignIn.signOut();
+            break;
+          case 'password':
+            await auth.signOut();
+            break;
+          // Add more cases if you are using other providers (e.g., Facebook, Twitter).
+        }
+      }
     }
   }
 }

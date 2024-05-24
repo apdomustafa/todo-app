@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:todo_app2/core/theming/colors.dart';
 import 'package:todo_app2/core/theming/icons.dart';
 import 'package:todo_app2/core/theming/styles.dart';
+import 'package:todo_app2/features/home/view_model/index_bloc/task_management_bloc.dart';
 
 class SearchView extends StatelessWidget {
   const SearchView({super.key});
@@ -15,6 +17,10 @@ class SearchView extends StatelessWidget {
           prefixIcon: AppIcons.search,
           hintText: 'Search for your task...',
           hintStyle: AppStyles.styleLatoReguler16(context)),
+      onChanged: (value) {
+        BlocProvider.of<TaskManagementBloc>(context)
+            .add(AllTasksWithTitleNeeded(value));
+      },
     );
   }
 }

@@ -204,8 +204,8 @@ class CategoryModule extends HiveObject {
   }
 
   static Future<void> addInitialCategories(BuildContext context) async {
-    bool isFirstTime = await AppUserInfo.isFirstTime();
-    if (isFirstTime) {
+    bool? isFirstTime = await AppUserInfo.isFirstTime();
+    if (isFirstTime == true) {
       BlocProvider.of<TaskManagementBloc>(context)
           .add(InitialCategoriesAdded(_categories));
     }

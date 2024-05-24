@@ -7,10 +7,12 @@ class AddDescriptionTextField extends StatefulWidget {
       {super.key,
       required this.hint,
       required this.controller,
-      required this.globalKey});
+      required this.globalKey,
+      required this.focusNode});
   final String hint;
   final TextEditingController controller;
   final GlobalKey globalKey;
+  final FocusNode focusNode;
 
   @override
   State<AddDescriptionTextField> createState() =>
@@ -19,23 +21,22 @@ class AddDescriptionTextField extends StatefulWidget {
 
 class _AddDescriptionTextFieldState extends State<AddDescriptionTextField> {
   bool _isFocused = false;
-  final FocusNode _focusNode = FocusNode();
   @override
   void initState() {
     super.initState();
-    _focusNode.addListener(_onFocusChange);
+    widget.focusNode.addListener(_onFocusChange);
   }
 
   void _onFocusChange() {
     setState(() {
-      _isFocused = _focusNode.hasFocus;
+      _isFocused = widget.focusNode.hasFocus;
     });
   }
 
   @override
   void dispose() {
-    _focusNode.removeListener(_onFocusChange);
-    _focusNode.dispose();
+    widget.focusNode.removeListener(_onFocusChange);
+    widget.focusNode.dispose();
     super.dispose();
   }
 
@@ -51,6 +52,7 @@ class _AddDescriptionTextFieldState extends State<AddDescriptionTextField> {
           }
           return null;
         },
+        textInputAction: TextInputAction.done,
         decoration: InputDecoration(
             contentPadding: EdgeInsets.symmetric(
                 vertical: _isFocused ? 8 : 0, horizontal: _isFocused ? 16 : 0),
@@ -61,7 +63,7 @@ class _AddDescriptionTextFieldState extends State<AddDescriptionTextField> {
               borderSide: const BorderSide(color: AppColors.greyColor),
               borderRadius: BorderRadius.circular(4),
             )),
-        focusNode: _focusNode,
+        focusNode: widget.focusNode,
       ),
     );
   }

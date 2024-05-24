@@ -120,4 +120,20 @@ class Hive_DB_RepoImpl extends TaskCRUD {
   Future<int> clearTasks() async {
     return await taskBox.clear();
   }
+
+  @override
+  List<TaskModule> readTasksWithTitle(String title) {
+    var allTasks = taskBox.values.toList().where((element) {
+      return element.title!.contains(title);
+    }).toList();
+    return allTasks;
+  }
+
+  @override
+  List<TaskModule> readCompletedTasksWithTitle(String title) {
+    var allTasks = completedTaskBox.values.toList().where((element) {
+      return element.title!.contains(title);
+    }).toList();
+    return allTasks;
+  }
 }

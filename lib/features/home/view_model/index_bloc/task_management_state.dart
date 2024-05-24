@@ -15,11 +15,12 @@ final class CategoriesGettingSuccessState extends TaskManagementState {
   CategoriesGettingSuccessState(this.categories);
 }
 
-class TasksGettingSuccessState extends TaskManagementState {
+class AllTasksGettingSuccessState extends TaskManagementState {
   final List<TaskModule> tasks;
   final List<TaskModule> completedTasks;
 
-  TasksGettingSuccessState({required this.tasks, required this.completedTasks});
+  AllTasksGettingSuccessState(
+      {required this.tasks, required this.completedTasks});
 }
 
 class TaskGettingSuccessState extends TaskManagementState {
@@ -27,10 +28,10 @@ class TaskGettingSuccessState extends TaskManagementState {
   TaskGettingSuccessState(this.task);
 }
 
-class CompletedTasksGettingSuccessState extends TaskManagementState {
+class CompletedAllTasksGettingSuccessState extends TaskManagementState {
   final List<TaskModule> tasks;
 
-  CompletedTasksGettingSuccessState(this.tasks);
+  CompletedAllTasksGettingSuccessState(this.tasks);
 }
 
 class CompletedTaskGettingSuccessState extends TaskManagementState {

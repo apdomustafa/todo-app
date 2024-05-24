@@ -1,6 +1,5 @@
 import 'package:bloc/bloc.dart';
 import 'package:flutter/foundation.dart';
-import 'package:todo_app2/core/helpers/constants.dart';
 import 'package:todo_app2/core/models/task_module.dart';
 import 'package:todo_app2/core/services/network/firebase.dart';
 import 'package:todo_app2/features/home/model/repo/local_DB_repo_impl.dart';
@@ -19,7 +18,7 @@ class TaskManagementBloc
           _taskCRUD.readCompletedTasks().isEmpty) {
         emit(TaskManagementInitial());
       } else {
-        emit(TasksGettingSuccessState(
+        emit(AllTasksGettingSuccessState(
             tasks: _taskCRUD.readtasks(),
             completedTasks: _taskCRUD.readCompletedTasks()));
       }
@@ -43,7 +42,7 @@ class TaskManagementBloc
           _taskCRUD.readCompletedTasks().isEmpty) {
         emit(TaskManagementInitial());
       } else {
-        emit(TasksGettingSuccessState(
+        emit(AllTasksGettingSuccessState(
             tasks: _taskCRUD.readtasks(),
             completedTasks: _taskCRUD.readCompletedTasks()));
       }
@@ -52,7 +51,7 @@ class TaskManagementBloc
     on<TaskUpdated>((event, emit) {
       _taskCRUD = Hive_DB_RepoImpl();
       _taskCRUD.updateTask(event.index, event.task);
-      emit(TasksGettingSuccessState(
+      emit(AllTasksGettingSuccessState(
           tasks: _taskCRUD.readtasks(),
           completedTasks: _taskCRUD.readCompletedTasks()));
     });
@@ -61,18 +60,18 @@ class TaskManagementBloc
       _taskCRUD = Hive_DB_RepoImpl();
       _taskCRUD.addTask(event.taskModule);
       var tasks = _taskCRUD.readtasks();
-      emit(TasksGettingSuccessState(
+      emit(AllTasksGettingSuccessState(
           tasks: tasks, completedTasks: _taskCRUD.readCompletedTasks()));
     });
 
     on<CompletedTaskAdd>((event, emit) {
       _taskCRUD = Hive_DB_RepoImpl();
       _taskCRUD.addCompletedTask(event.taskModule);
-      emit(TasksGettingSuccessState(
+      emit(AllTasksGettingSuccessState(
           tasks: _taskCRUD.readtasks(),
           completedTasks: _taskCRUD.readCompletedTasks()));
 
-      // emit(CompletedTasksGettingSuccessState(_taskCRUD.readCompletedTasks()));
+      // emit(CompletedAllTasksGettingSuccessState(_taskCRUD.readCompletedTasks()));
     });
 
     on<CompletedTaskDeleted>((event, emit) {
@@ -82,7 +81,7 @@ class TaskManagementBloc
           _taskCRUD.readCompletedTasks().isEmpty) {
         emit(TaskManagementInitial());
       } else {
-        emit(TasksGettingSuccessState(
+        emit(AllTasksGettingSuccessState(
             tasks: _taskCRUD.readtasks(),
             completedTasks: _taskCRUD.readCompletedTasks()));
       }
@@ -92,7 +91,7 @@ class TaskManagementBloc
       _taskCRUD = Hive_DB_RepoImpl();
       _taskCRUD.addCompletedTask(_taskCRUD.readTask(event.index)!);
       _taskCRUD.deleteTask(event.index);
-      emit(TasksGettingSuccessState(
+      emit(AllTasksGettingSuccessState(
           tasks: _taskCRUD.readtasks(),
           completedTasks: _taskCRUD.readCompletedTasks()));
     });
@@ -101,8 +100,7 @@ class TaskManagementBloc
       _taskCRUD = Hive_DB_RepoImpl();
       _taskCRUD.addTask(_taskCRUD.readCompletedTask(event.index)!);
       _taskCRUD.deleteCompletedTask(event.index);
-      // emit(CompletedTasksGettingSuccessState(_taskCRUD.readCompletedTasks()));
-      emit(TasksGettingSuccessState(
+      emit(AllTasksGettingSuccessState(
           tasks: _taskCRUD.readtasks(),
           completedTasks: _taskCRUD.readCompletedTasks()));
     });
@@ -110,30 +108,38 @@ class TaskManagementBloc
     on<AllTasksFromServerToDBRead>((event, emit) async {
       emit(TaskManagementLoading());
       _taskCRUD = Hive_DB_RepoImpl();
+      await _taskCRUD.clearTasks();
+      await _taskCRUD.clearCompletedTasks();
+      await _taskCRUD.clearCategories();
       var tasks = await firebaseService.getUncompletedTasks();
       var completedTasks = await firebaseService.getCompletedTasks();
       var categories = await firebaseService.getCategories();
       emit(TaskManagementDissmisLoading());
 
-      if (tasks.isEmpty && completedTasks.isEmpty) {
-        emit(TaskManagementInitial());
-      } else {
-        emit(TasksGettingSuccessState(
+      if (tasks.isNotEmpty || completedTasks.isNotEmpty) {
+        emit(AllTasksGettingSuccessState(
             tasks: tasks, completedTasks: completedTasks));
+
+        _taskCRUD.addTasks(tasks);
+        _taskCRUD.addCompletedTasks(completedTasks);
+        _taskCRUD.addInitialCategories(categories);
+      } else {
+        emit(TaskManagementInitial());
       }
-      await _taskCRUD.clearTasks();
-      await _taskCRUD.clearCompletedTasks();
-      await _taskCRUD.clearCategories();
-      _taskCRUD.addTasks(tasks);
-      _taskCRUD.addCompletedTasks(completedTasks);
-      _taskCRUD.addInitialCategories(categories);
     });
 
     on<InitialCategoriesAdded>((event, emit) async {
       _taskCRUD = Hive_DB_RepoImpl();
+      await _taskCRUD.clearCategories();
       _taskCRUD.addInitialCategories(event.initialCategories);
     });
 
-    on<InitialCategoiresFormServerToDBAdded>((event, emit) async {});
+    on<AllTasksWithTitleNeeded>((event, emit) async {
+      _taskCRUD = Hive_DB_RepoImpl();
+      var tasks = _taskCRUD.readTasksWithTitle(event.title);
+      var completedTasks = _taskCRUD.readCompletedTasksWithTitle(event.title);
+      emit(AllTasksGettingSuccessState(
+          tasks: tasks, completedTasks: completedTasks));
+    });
   }
 }

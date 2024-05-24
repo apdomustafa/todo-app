@@ -1,17 +1,18 @@
 class Assets {
   Assets._();
-  
+
   /// Assets for svgsApple
   /// assets/svgs/apple.svg
   static const String svgsApple = "assets/svgs/apple.svg";
 
   /// Assets for svgsCreateDailyRoutie
   /// assets/svgs/createDailyRoutie.svg
-  static const String svgsCreateDailyRoutie = "assets/svgs/createDailyRoutie.svg";
+  static const String svgsCreateDailyRoutie =
+      "assets/svgs/createDailyRoutie.svg";
 
-  /// Assets for svgsFingerprint 
+  /// Assets for svgsFingerprint
   /// assets/svgs/fingerprint .svg
-  static const String svgsFingerprint  = "assets/svgs/fingerprint .svg";
+  static const String svgsFingerprint = "assets/svgs/fingerprint .svg";
 
   /// Assets for svgsFingerprintError
   /// assets/svgs/fingerprintError.svg
@@ -33,8 +34,10 @@ class Assets {
   /// assets/svgs/manageYourTask.svg
   static const String svgsManageYourTask = "assets/svgs/manageYourTask.svg";
 
-  /// Assets for svgsOrganizeYourTask 
+  /// Assets for svgsOrganizeYourTask
   /// assets/svgs/organizeYourTask .svg
-  static const String svgsOrganizeYourTask  = "assets/svgs/organizeYourTask .svg";
-}
+  static const String svgsOrganizeYourTask =
+      "assets/svgs/organizeYourTask .svg";
 
+  static const String imageUserProfile = "assets/images/userProfile.jpg";
+}

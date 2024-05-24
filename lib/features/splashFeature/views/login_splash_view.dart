@@ -5,8 +5,8 @@ import 'package:todo_app2/core/helpers/navigation.dart';
 import 'package:todo_app2/core/theming/colors.dart';
 import 'package:todo_app2/core/theming/icons.dart';
 import 'package:todo_app2/core/theming/styles.dart';
-import 'package:todo_app2/features/login_create_feature/views/create_account_view.dart';
-import 'package:todo_app2/features/login_create_feature/views/login_view.dart';
+import 'package:todo_app2/features/auth/views/create_account_view.dart';
+import 'package:todo_app2/features/auth/views/login_view.dart';
 
 class LoginSplashView extends StatelessWidget {
   const LoginSplashView({super.key});

@@ -47,10 +47,13 @@ class CategoryPickerItem extends StatelessWidget {
             ),
           ),
           const Gap(5),
-          Text(
-            catrgoryName,
-            overflow: TextOverflow.ellipsis,
-            style: AppStyles.styleLatoReguler14(context),
+          FittedBox(
+            child: Text(
+              catrgoryName,
+              overflow: TextOverflow.ellipsis,
+              maxLines: 2,
+              style: AppStyles.styleLatoReguler14(context),
+            ),
           ),
         ],
       ),

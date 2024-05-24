@@ -39,63 +39,67 @@ class _CalenderViewState extends State<CalenderView> {
             ),
           ),
           const Gap(16),
-          Flexible(
-            child: CalenderWidget(
-              onDateChage: (date) {
-                setState(() {
-                  this.date = date;
-                });
-              },
-            ),
+          CalenderWidget(
+            onDateChage: (date) {
+              setState(() {
+                this.date = date;
+              });
+            },
           ),
           const Gap(20),
           ChooseTodeyOrCompleted(
             date: date,
           ),
-          Expanded(
-              child: BlocBuilder<CalenderBloc, CalenderState>(
+          BlocBuilder<CalenderBloc, CalenderState>(
             buildWhen: (previous, current) =>
-                current is CalenderTasksGettingSuccessState ||
-                current is CalenderCompletedTasksGettingSuccessState ||
+                current is TasksGettingSuccessState ||
+                current is CalenderCompletedAllTasksGettingSuccessState ||
                 current is CalenderInitialState,
             builder: (BuildContext context, state) {
-              if (state is CalenderTasksGettingSuccessState) {
-                return Padding(
-                  padding: const EdgeInsets.only(top: 12),
-                  child: TaskItems(
-                    items: state.tasks,
-                    onRadioSelected: (index) {
-                      BlocProvider.of<CalenderBloc>(context).add(
-                          CalenderTaskDeletedCompletedAdded(
-                              index: index, date: date));
-                    },
-                    onItemRemoved: (int index) {
-                      BlocProvider.of<CalenderBloc>(context)
-                          .add(CalenderTaskDeleted(index: index));
-                    },
+              if (state is TasksGettingSuccessState) {
+                return Expanded(
+                  child: Padding(
+                    padding: const EdgeInsets.only(top: 12),
+                    child: TaskItems(
+                      isSrollable: true,
+                      items: state.tasks,
+                      onRadioSelected: (index) {
+                        BlocProvider.of<CalenderBloc>(context).add(
+                            CalenderTaskDeletedCompletedAdded(
+                                index: index, date: date));
+                      },
+                      onItemRemoved: (int index) {
+                        BlocProvider.of<CalenderBloc>(context)
+                            .add(CalenderTaskDeleted(index: index));
+                      },
+                    ),
                   ),
                 );
-              } else if (state is CalenderCompletedTasksGettingSuccessState) {
+              } else if (state
+                  is CalenderCompletedAllTasksGettingSuccessState) {
                 return Padding(
                   padding: const EdgeInsets.only(top: 12),
-                  child: TaskItems(
-                    items: state.tasks,
-                    onRadioSelected: (index) {
-                      BlocProvider.of<CalenderBloc>(context).add(
-                          CalenderCompletedDeletedTaskAdded(
-                              index: index, date: date));
-                    },
-                    onItemRemoved: (int index) {
-                      BlocProvider.of<CalenderBloc>(context)
-                          .add(CalenderCompletedTaskDeleted(index: index));
-                    },
+                  child: Expanded(
+                    child: TaskItems(
+                      isSrollable: true,
+                      items: state.tasks,
+                      onRadioSelected: (index) {
+                        BlocProvider.of<CalenderBloc>(context).add(
+                            CalenderCompletedDeletedTaskAdded(
+                                index: index, date: date));
+                      },
+                      onItemRemoved: (int index) {
+                        BlocProvider.of<CalenderBloc>(context)
+                            .add(CalenderCompletedTaskDeleted(index: index));
+                      },
+                    ),
                   ),
                 );
               } else {
-                return const IndexInitial();
+                return const Expanded(child: IndexInitial());
               }
             },
-          )),
+          ),
         ],
       ),
     );

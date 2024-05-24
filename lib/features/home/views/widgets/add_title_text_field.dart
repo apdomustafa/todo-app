@@ -7,10 +7,12 @@ class AddTitleTextField extends StatefulWidget {
       {super.key,
       required this.hint,
       required this.controller,
-      required this.globalKey});
+      required this.globalKey,
+      required this.descriptionNode});
   final String hint;
   final TextEditingController controller;
   final GlobalKey globalKey;
+  final FocusNode descriptionNode;
 
   @override
   State<AddTitleTextField> createState() => _AddTitleTextFieldState();
@@ -50,6 +52,7 @@ class _AddTitleTextFieldState extends State<AddTitleTextField> {
           }
           return null;
         },
+        textInputAction: TextInputAction.next,
         decoration: InputDecoration(
             contentPadding: EdgeInsets.symmetric(
                 vertical: _isFocused ? 8 : 0, horizontal: _isFocused ? 16 : 0),
@@ -60,6 +63,9 @@ class _AddTitleTextFieldState extends State<AddTitleTextField> {
               borderSide: const BorderSide(color: AppColors.greyColor),
               borderRadius: BorderRadius.circular(4),
             )),
+        onFieldSubmitted: (value) {
+          FocusScope.of(context).requestFocus(widget.descriptionNode);
+        },
         focusNode: _focusNode,
       ),
     );

@@ -22,6 +22,7 @@ class _BottomSheetContentState extends State<BottomSheetContent> {
   late TextEditingController descriptionController;
   GlobalKey<FormState> titleTextFieldKey = GlobalKey<FormState>();
   GlobalKey<FormState> descriptiontextFieldKey = GlobalKey<FormState>();
+  FocusNode descriptionNode = FocusNode();
 
   @override
   void initState() {
@@ -42,6 +43,9 @@ class _BottomSheetContentState extends State<BottomSheetContent> {
     return SingleChildScrollView(
       child: Container(
         padding: EdgeInsets.only(
+          left: 24,
+          right: 24,
+          top: 24,
           bottom: MediaQuery.of(context).viewInsets.bottom + 16,
         ),
         decoration: const BoxDecoration(
@@ -51,38 +55,37 @@ class _BottomSheetContentState extends State<BottomSheetContent> {
             topRight: Radius.circular(20.0),
           ),
         ),
-        child: Padding(
-          padding: const EdgeInsets.only(left: 24, right: 24, top: 24),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                'Add Task',
-                textAlign: TextAlign.start,
-                style: AppStyles.styleLatoBold20(context).copyWith(
-                  color: Colors.white.withOpacity(0.87),
-                ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              'Add Task',
+              textAlign: TextAlign.start,
+              style: AppStyles.styleLatoBold20(context).copyWith(
+                color: Colors.white.withOpacity(0.87),
               ),
-              const Gap(14),
-              AddTitleTextField(
-                hint: 'Title',
-                controller: titleController,
-                globalKey: titleTextFieldKey,
-              ),
-              const Gap(14),
-              AddDescriptionTextField(
-                hint: 'Description',
-                controller: descriptionController,
-                globalKey: descriptiontextFieldKey,
-              ),
-              const Gap(35),
-              AddTaskBottomPart(
-                savetask: () {
-                  _saveTask(context);
-                },
-              ),
-            ],
-          ),
+            ),
+            const Gap(14),
+            AddTitleTextField(
+              hint: 'Title',
+              controller: titleController,
+              globalKey: titleTextFieldKey,
+              descriptionNode: descriptionNode,
+            ),
+            const Gap(14),
+            AddDescriptionTextField(
+              hint: 'Description',
+              controller: descriptionController,
+              globalKey: descriptiontextFieldKey,
+              focusNode: descriptionNode,
+            ),
+            const Gap(35),
+            AddTaskBottomPart(
+              savetask: () {
+                _saveTask(context);
+              },
+            ),
+          ],
         ),
       ),
     );
