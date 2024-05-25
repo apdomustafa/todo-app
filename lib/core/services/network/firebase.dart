@@ -1,12 +1,17 @@
+import 'dart:io';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:dartz/dartz.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:todo_app2/core/helpers/failures.dart';
 import 'package:todo_app2/core/models/task_module.dart';
 
 class FirebaseService {
-  final User? user = FirebaseAuth.instance.currentUser;
+  final User? _user = FirebaseAuth.instance.currentUser;
 
   CollectionReference taskCollection =
       FirebaseFirestore.instance.collection('tasks');
@@ -26,8 +31,8 @@ class FirebaseService {
       {required List<TaskModule> tasks,
       required List<TaskModule> completedTasks,
       required List<CategoryModule> categories}) async {
-    if (user != null) {
-      String uid = user!.uid;
+    if (_user != null) {
+      String uid = _user.uid;
 
       List<Map<String, dynamic>> tasksJson =
           tasks.map((task) => task.toJson()).toList();
@@ -232,9 +237,47 @@ class FirebaseService {
     }
   }
 
-  // void saveUserImage(File userImage){
-  //   Fire
-  // }
+  Future<void> _reauthenticate(String currentPassword) async {
+    User? user = FirebaseAuth.instance.currentUser;
+
+    if (user != null && user.email != null) {
+      // Re-authenticate the user
+      print(user.email);
+      print(currentPassword);
+      AuthCredential credential = EmailAuthProvider.credential(
+        email: user.email!,
+        password: currentPassword,
+      );
+      await user.reauthenticateWithCredential(credential);
+    }
+  }
+
+  Future<Either<Failure, void>> updatePass(
+      String currentPassword, String newPassword) async {
+    User? user = FirebaseAuth.instance.currentUser;
+
+    if (user != null) {
+      try {
+        await _reauthenticate(currentPassword);
+        await user.updatePassword(newPassword);
+      } on FirebaseAuthException catch (e) {
+        return left(FirebaseFailure.fromFirebaseAuthException(e));
+      } catch (e) {
+        left(FirebaseFailure(message: 'error'));
+      }
+    }
+    return right(null);
+  }
+
+  void saveUserImage(File userImage) {
+    User? user = FirebaseAuth.instance.currentUser;
+
+    try {
+      FirebaseStorage.instance.ref().child(user!.uid).putFile(userImage);
+    } on Exception catch (e) {
+      rethrow;
+    }
+  }
 
   void logOut() async {
     final FirebaseAuth auth = FirebaseAuth.instance;

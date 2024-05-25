@@ -1,17 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
 import 'package:todo_app2/core/theming/styles.dart';
 import 'package:todo_app2/core/widgets/custom_button.dart';
+import 'package:todo_app2/features/user/controller/user_bloc/user_bloc.dart';
 import 'package:todo_app2/features/user/views/widgets/name_TF.dart';
 
 Future<void> changeAccountPass({
   required BuildContext context,
 }) async {
-  var passFormKey = GlobalKey<FormState>();
-  var confirmPassFormKey = GlobalKey<FormState>();
-  var passController = TextEditingController();
-  var ConfirmPassController = TextEditingController();
+  var currentPassFormKey = GlobalKey<FormState>();
+  var newPassFormKey = GlobalKey<FormState>();
+  var currentPassController = TextEditingController();
+  var newPassController = TextEditingController();
   await showDialog(
       context: context,
       builder: (context) {
@@ -46,8 +48,8 @@ Future<void> changeAccountPass({
                 ),
               ),
               NameTF(
-                formKey: passFormKey,
-                controller: passController,
+                formKey: currentPassFormKey,
+                controller: currentPassController,
                 obscureText: true,
                 hint: '••••••••••',
               ),
@@ -60,8 +62,8 @@ Future<void> changeAccountPass({
                 ),
               ),
               NameTF(
-                formKey: confirmPassFormKey,
-                controller: ConfirmPassController,
+                formKey: newPassFormKey,
+                controller: newPassController,
                 obscureText: true,
                 hint: '••••••••••',
               ),
@@ -77,7 +79,18 @@ Future<void> changeAccountPass({
                         }),
                   ),
                   Expanded(
-                    child: CustomButton(text: 'Edit', onpress: () {}),
+                    child: CustomButton(
+                        text: 'Edit',
+                        onpress: () {
+                          if (currentPassFormKey.currentState!.validate() &&
+                              newPassFormKey.currentState!.validate()) {
+                            BlocProvider.of<UserBloc>(context).add(
+                                PasswordChanged(
+                                    currentPass:
+                                        currentPassController.text.trim(),
+                                    newPass: newPassController.text.trim()));
+                          }
+                        }),
                   ),
                 ],
               )

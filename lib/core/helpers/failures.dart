@@ -23,6 +23,8 @@ class FirebaseFailure extends Failure {
       case 'account-exists-with-different-credential':
         return FirebaseFailure(
             message: 'Account exists with different credential.');
+      case 'user-mismatch':
+        return FirebaseFailure(message: 'user mismatch');
       case 'user-not-found':
         return FirebaseFailure(message: 'user not found');
 

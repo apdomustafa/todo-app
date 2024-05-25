@@ -9,6 +9,7 @@ import 'package:todo_app2/core/helpers/methods/app_user_info.dart';
 import 'package:todo_app2/core/theming/assets.dart';
 import 'package:todo_app2/core/theming/styles.dart';
 import 'package:todo_app2/features/auth/views/login_view.dart';
+import 'package:todo_app2/features/home/views/helper_method/error_dialog.dart';
 import 'package:todo_app2/features/user/controller/user_bloc/user_bloc.dart';
 import 'package:todo_app2/features/user/views/helper_method/change_account_image.dart';
 import 'package:todo_app2/features/user/views/helper_method/change_account_name.dart';
@@ -50,6 +51,11 @@ class _UserViewState extends State<UserView> {
         if (state is UserSignOutSuccessfully) {
           Navigator.of(context).pushReplacement(
               MaterialPageRoute(builder: (context) => const LoginView()));
+        } else if (state is PassUpdateSuccessfully) {
+          Navigator.of(context).pushReplacement(
+              MaterialPageRoute(builder: (context) => const LoginView()));
+        } else if (state is UserError) {
+          showErrorDialog(context, state.errorMessage);
         }
       },
       child: SingleChildScrollView(

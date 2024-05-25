@@ -15,3 +15,8 @@ class UserNameChanged implements UserEvent {
   final String userName;
   UserNameChanged(this.userName);
 }
+
+class PasswordChanged implements UserEvent {
+  final String currentPass, newPass;
+  PasswordChanged({required this.currentPass, required this.newPass});
+}
