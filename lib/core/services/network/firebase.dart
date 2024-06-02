@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'dart:typed_data';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dartz/dartz.dart';
@@ -237,13 +238,24 @@ class FirebaseService {
     }
   }
 
+  Future<Uint8List?> getUserImage() async {
+    User? user = FirebaseAuth.instance.currentUser;
+
+    try {
+      return await FirebaseStorage.instance.ref().child(user!.uid).getData();
+    } catch (e) {
+      if (e is FirebaseException && e.code == 'object-not-found') {
+        return null;
+      } else {
+        rethrow;
+      }
+    }
+  }
+
   Future<void> _reauthenticate(String currentPassword) async {
     User? user = FirebaseAuth.instance.currentUser;
 
     if (user != null && user.email != null) {
-      // Re-authenticate the user
-      print(user.email);
-      print(currentPassword);
       AuthCredential credential = EmailAuthProvider.credential(
         email: user.email!,
         password: currentPassword,

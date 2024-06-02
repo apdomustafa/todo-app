@@ -45,7 +45,8 @@ class LoginSplashView extends StatelessWidget {
                 width: double.infinity,
                 child: TextButton(
                   onPressed: () {
-                    AppNavigation.navigateTO(const LoginView(), context);
+                    AppNavigation.navigateTO(const LoginView(), context,
+                        const RouteSettings(name: 'login view'));
                   },
                   style: TextButton.styleFrom(
                     backgroundColor: AppColors.primaryColor,

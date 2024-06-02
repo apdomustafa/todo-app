@@ -72,7 +72,8 @@ class _CreateAccountViewState extends State<CreateAccountView> {
                   setState(() {
                     isLoadingValue = false;
                   });
-                  AppNavigation.navigateTO(const LoginView(), context);
+                  AppNavigation.navigateTO(const LoginView(), context,
+                      const RouteSettings(name: 'login view'));
                 }
               },
               child: SingleChildScrollView(

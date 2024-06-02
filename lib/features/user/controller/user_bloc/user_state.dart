@@ -16,6 +16,18 @@ final class UserError extends UserState {
   UserError({required this.errorMessage});
 }
 
+final class UserDataGettingSuccess extends UserState {
+  final String? userName;
+  final Uint8List? image;
+  final int numOftasksLeft;
+  final int numOfTasksDone;
+  UserDataGettingSuccess(
+      {required this.image,
+      required this.userName,
+      required this.numOftasksLeft,
+      required this.numOfTasksDone});
+}
+
 final class UserImageUpdateSuccessfully extends UserState {
   final Uint8List? image;
   UserImageUpdateSuccessfully({required this.image});
@@ -27,9 +39,3 @@ final class UserNameUpdateSuccessfully extends UserState {
 }
 
 final class PassUpdateSuccessfully extends UserState {}
-
-final class UserDataGettingSuccess extends UserState {
-  final String? userName;
-  final Uint8List? image;
-  UserDataGettingSuccess({required this.image, required this.userName});
-}

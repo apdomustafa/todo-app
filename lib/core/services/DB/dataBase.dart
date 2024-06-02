@@ -1,7 +1,6 @@
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:todo_app2/core/helpers/constants.dart';
 import 'package:todo_app2/core/models/task_module.dart';
-import 'package:todo_app2/features/user/model/user_info.dart';
 
 class DB {
   static Future<void> initDB() async {

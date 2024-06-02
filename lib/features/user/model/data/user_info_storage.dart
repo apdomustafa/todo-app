@@ -10,7 +10,7 @@ class UserInfoStorage {
     userBox.put(kUserName, userName);
   }
 
-  void saveUserImage(Uint8List userImageBytes) {
+  void saveUserImage(Uint8List? userImageBytes) {
     userBox.put(kuserImage, userImageBytes);
   }
 

@@ -95,7 +95,7 @@ class _SplashViewState extends State<SplashView> with TickerProviderStateMixin {
   }
 
   void naviate(Widget child) {
-    Navigator.push(
+    Navigator.pushReplacement(
         context,
         PageTransition(
             duration: const Duration(milliseconds: 500),

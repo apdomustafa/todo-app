@@ -35,7 +35,7 @@ class _IndexViewState extends State<IndexView> {
       initialDelay: const Duration(minutes: 2),
       frequency: const Duration(minutes: 15), // Minimum interval is 15 minutes
     );
-    CategoryModule.addInitialCategories(context);
+    await CategoryModule.addInitialCategories(context);
     saveBackupLocaly();
   }
 

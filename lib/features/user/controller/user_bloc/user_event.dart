@@ -7,7 +7,12 @@ class ServerUserDateNeeded implements UserEvent {}
 
 class LocalUserDateNeeded implements UserEvent {}
 
-class UserImageChanged implements UserEvent {}
+class NumberAllTasksNeeded implements UserEvent {}
+
+class UserImageChanged implements UserEvent {
+  TypeImagePicker typeImagePicker;
+  UserImageChanged({required this.typeImagePicker});
+}
 
 class UserSignedOut implements UserEvent {}
 

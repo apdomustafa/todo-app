@@ -4,6 +4,7 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
+import 'package:todo_app2/core/helpers/enums.dart';
 import 'package:todo_app2/core/theming/styles.dart';
 import 'package:todo_app2/features/user/controller/user_bloc/user_bloc.dart';
 
@@ -30,7 +31,11 @@ void changeAccountImage({required BuildContext context}) {
               const Divider(),
               Gap(28.h),
               InkWell(
-                onTap: () {},
+                onTap: () {
+                  BlocProvider.of<UserBloc>(context).add(UserImageChanged(
+                      typeImagePicker: TypeImagePicker.camera));
+                  Navigator.pop(context);
+                },
                 child: Text(
                   'Tack picture',
                   style: AppStyles.styleLatoReguler16(context),
@@ -39,7 +44,8 @@ void changeAccountImage({required BuildContext context}) {
               Gap(28.h),
               InkWell(
                 onTap: () {
-                  BlocProvider.of<UserBloc>(context).add(UserImageChanged());
+                  BlocProvider.of<UserBloc>(context).add(UserImageChanged(
+                      typeImagePicker: TypeImagePicker.gallery));
                   Navigator.pop(context);
                 },
                 child: Text(

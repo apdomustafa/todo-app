@@ -10,17 +10,22 @@ import 'package:todo_app2/core/theming/assets.dart';
 import 'package:todo_app2/core/theming/styles.dart';
 import 'package:todo_app2/features/user/controller/user_bloc/user_bloc.dart';
 import 'package:todo_app2/features/user/model/data/user_info_storage.dart';
+import 'package:todo_app2/features/user/views/widgets/number_of_task.dart';
 
-class UserNameAndImage extends StatefulWidget {
-  const UserNameAndImage({super.key});
+class UserNameAndImageAndNumOfTasks extends StatefulWidget {
+  const UserNameAndImageAndNumOfTasks({super.key});
 
   @override
-  State<UserNameAndImage> createState() => _UserNameAndImageState();
+  State<UserNameAndImageAndNumOfTasks> createState() =>
+      _UserNameAndImageAndNumOfTasksState();
 }
 
-class _UserNameAndImageState extends State<UserNameAndImage> {
+class _UserNameAndImageAndNumOfTasksState
+    extends State<UserNameAndImageAndNumOfTasks> {
   String? userName;
   Uint8List? imageBytes;
+  int numOfTasksDone = 0;
+  int numOfTasksLeft = 0;
 
   @override
   void initState() {
@@ -44,6 +49,11 @@ class _UserNameAndImageState extends State<UserNameAndImage> {
           userName = state.name;
         } else if (state is UserImageUpdateSuccessfully) {
           imageBytes = state.image;
+        } else if (state is UserDataGettingSuccess) {
+          userName = state.userName;
+          imageBytes = state.image;
+          numOfTasksLeft = state.numOftasksLeft;
+          numOfTasksDone = state.numOfTasksDone;
         } else if (state is UserDateDissmisLoading) {
           Navigator.pop(context);
         }
@@ -67,6 +77,22 @@ class _UserNameAndImageState extends State<UserNameAndImage> {
             Text(
               userName ?? 'userName',
               style: AppStyles.styleLatoMeduim20(context),
+            ),
+            Gap(20.h),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 24),
+              child: Row(
+                children: [
+                  Expanded(
+                    child:
+                        NumberOfTasks(text: '$numOfTasksLeft  of tasks left'),
+                  ),
+                  const Gap(20),
+                  Expanded(
+                    child: NumberOfTasks(text: '$numOfTasksDone of tasks done'),
+                  ),
+                ],
+              ),
             ),
           ],
         );

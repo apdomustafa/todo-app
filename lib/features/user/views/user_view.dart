@@ -49,6 +49,8 @@ class _UserViewState extends State<UserView> {
     return BlocListener<UserBloc, UserState>(
       listener: (context, state) {
         if (state is UserSignOutSuccessfully) {
+          // Navigator.of(context).popUntil(ModalRoute.withName("login view"));
+
           Navigator.of(context).pushReplacement(
               MaterialPageRoute(builder: (context) => const LoginView()));
         } else if (state is PassUpdateSuccessfully) {
@@ -68,22 +70,7 @@ class _UserViewState extends State<UserView> {
                 style: AppStyles.styleLatoReguler20(context),
               ),
               Gap(24.h),
-              const UserNameAndImage(),
-              Gap(20.h),
-              const Padding(
-                padding: EdgeInsets.symmetric(horizontal: 24),
-                child: Row(
-                  children: [
-                    Expanded(
-                      child: NumberOfTasks(text: '10 of tasks left'),
-                    ),
-                    Gap(20),
-                    Expanded(
-                      child: NumberOfTasks(text: '5 of tasks done'),
-                    ),
-                  ],
-                ),
-              ),
+              const UserNameAndImageAndNumOfTasks(),
               Gap(32.h),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,

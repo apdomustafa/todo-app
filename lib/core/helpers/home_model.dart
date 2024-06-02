@@ -8,7 +8,6 @@ class IndexModel {
   static const List<Widget> homeWidgets = [
     IndexView(),
     CalenderView(),
-    FocusView(),
     UserView(),
   ];
 }

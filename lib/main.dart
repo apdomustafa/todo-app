@@ -10,10 +10,10 @@ import 'package:todo_app2/core/services/network/firebase.dart';
 import 'package:todo_app2/core/theming/colors.dart';
 import 'package:todo_app2/features/home/model/repo/local_DB_repo_impl.dart';
 import 'package:todo_app2/features/home/model/repo/task_CRUD.dart';
-import 'package:todo_app2/features/home/view_model/calender_bloc/calender_bloc.dart';
-import 'package:todo_app2/features/home/view_model/index_bloc/task_management_bloc.dart';
 import 'package:todo_app2/features/auth/view_model/login_bloc/login_bloc.dart';
 import 'package:todo_app2/features/auth/view_model/register_bloc/register_bloc.dart';
+import 'package:todo_app2/features/home/view_model/calender_bloc/calender_bloc.dart';
+import 'package:todo_app2/features/home/view_model/index_bloc/task_management_bloc.dart';
 import 'package:todo_app2/features/splashFeature/views/splash_view.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:todo_app2/features/user/controller/user_bloc/user_bloc.dart';
@@ -24,11 +24,11 @@ void main() async {
   setup();
   await DB.initDB();
   AppUserInfo.userInit();
-  Workmanager().initialize(
-      callbackDispatcher, // The top level function, aka callbackDispatcher
-      isInDebugMode:
-          true // If enabled it will post a notification whenever the task is running. Handy for debugging tasks
-      );
+  // Workmanager().initialize(
+  //     callbackDispatcher, // The top level function, aka callbackDispatcher
+  //     isInDebugMode:
+  //         true // If enabled it will post a notification whenever the task is running. Handy for debugging tasks
+  //     );
 
   runApp(const TodoApp());
 }
@@ -59,17 +59,17 @@ class TodoApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
-        BlocProvider<RegisterBloc>(
-          create: (context) => RegisterBloc(),
-        ),
-        BlocProvider<LoginBloc>(
-          create: (context) => LoginBloc(),
-        ),
         BlocProvider<TaskManagementBloc>(
           create: (context) => TaskManagementBloc(),
         ),
         BlocProvider<CalenderBloc>(
           create: (context) => CalenderBloc(),
+        ),
+        BlocProvider<RegisterBloc>(
+          create: (context) => RegisterBloc(),
+        ),
+        BlocProvider<LoginBloc>(
+          create: (context) => LoginBloc(),
         ),
         BlocProvider<UserBloc>(
           create: (context) => UserBloc(),

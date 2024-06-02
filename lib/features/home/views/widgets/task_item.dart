@@ -92,90 +92,110 @@ class _TaskItemState extends State<TaskItem> {
                         widget.item.title!,
                         style: AppStyles.styleLatoReguler16(context),
                       ),
-                      Text(
-                        widget.item.getDateAndTime(),
-                        style: AppStyles.styleLatoReguler14(context).copyWith(
-                          color: AppColors.greyColor,
-                        ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Flexible(
+                            flex: 2,
+                            child: FittedBox(
+                              fit: BoxFit.scaleDown,
+                              child: Text(
+                                widget.item.getDateAndTime(),
+                                style: AppStyles.styleLatoReguler14(context)
+                                    .copyWith(
+                                  color: AppColors.greyColor,
+                                ),
+                              ),
+                            ),
+                          ),
+                          const Spacer(),
+                          widget.item.category!.categoryName == null
+                              ? const SizedBox()
+                              : Expanded(
+                                  flex: 3,
+                                  child: Row(
+                                    children: [
+                                      Flexible(
+                                        flex: 2,
+                                        child: Container(
+                                          height: 29,
+                                          padding: const EdgeInsets.symmetric(
+                                              horizontal: 4),
+                                          decoration: BoxDecoration(
+                                            color: getLighterColor(
+                                                widget.item.category!.color!),
+                                            borderRadius:
+                                                BorderRadius.circular(4),
+                                          ),
+                                          child: Row(
+                                            children: [
+                                              Flexible(
+                                                child: Icon(
+                                                  IconData(
+                                                      widget.item.category!
+                                                          .iconCodePoint!,
+                                                      fontFamily:
+                                                          'MaterialIcons'), // Icon point value for "home" icon
+
+                                                  color: getDarkerColor(widget
+                                                      .item.category!.color!),
+                                                ),
+                                              ),
+                                              const Gap(8),
+                                              Flexible(
+                                                flex: 2,
+                                                child: Text(
+                                                  widget.item.category!
+                                                      .categoryName!,
+                                                  overflow:
+                                                      TextOverflow.ellipsis,
+                                                  style: AppStyles
+                                                          .styleLatoReguler12(
+                                                              context)
+                                                      .copyWith(
+                                                    color: AppColors.labelColor,
+                                                  ),
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      ),
+                                      Flexible(
+                                        child: Container(
+                                          height: 29,
+                                          margin: const EdgeInsets.symmetric(
+                                              horizontal: 4),
+                                          decoration: BoxDecoration(
+                                            color: AppColors.secondryColor,
+                                            borderRadius:
+                                                BorderRadius.circular(4),
+                                            border: Border.all(
+                                                color: AppColors.primaryColor),
+                                          ),
+                                          child: Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceEvenly,
+                                            children: [
+                                              const Icon(
+                                                Icons.bookmark,
+                                                size: 20,
+                                              ),
+                                              Text(widget.item.priority
+                                                  .toString()),
+                                            ],
+                                          ),
+                                        ),
+                                      )
+                                    ],
+                                  ),
+                                )
+                        ],
                       ),
                     ],
                   ),
                 ),
               ),
-              // const Spacer(),
-              widget.item.category!.categoryName == null
-                  ? const SizedBox()
-                  : Flexible(
-                      flex: 2,
-                      child: Row(
-                        children: [
-                          Flexible(
-                            flex: 2,
-                            child: Container(
-                              height: 29,
-                              padding:
-                                  const EdgeInsets.symmetric(horizontal: 4),
-                              decoration: BoxDecoration(
-                                color: getLighterColor(
-                                    widget.item.category!.color!),
-                                borderRadius: BorderRadius.circular(4),
-                              ),
-                              child: Row(
-                                children: [
-                                  Flexible(
-                                    child: Icon(
-                                      IconData(
-                                          widget.item.category!.iconCodePoint!,
-                                          fontFamily:
-                                              'MaterialIcons'), // Icon point value for "home" icon
-
-                                      color: getDarkerColor(
-                                          widget.item.category!.color!),
-                                    ),
-                                  ),
-                                  const Gap(8),
-                                  Flexible(
-                                    flex: 2,
-                                    child: Text(
-                                      widget.item.category!.categoryName!,
-                                      overflow: TextOverflow.ellipsis,
-                                      style:
-                                          AppStyles.styleLatoReguler12(context)
-                                              .copyWith(
-                                        color: AppColors.labelColor,
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                          Flexible(
-                            child: Container(
-                              height: 29,
-                              margin: const EdgeInsets.symmetric(horizontal: 4),
-                              decoration: BoxDecoration(
-                                color: AppColors.secondryColor,
-                                borderRadius: BorderRadius.circular(4),
-                                border:
-                                    Border.all(color: AppColors.primaryColor),
-                              ),
-                              child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceEvenly,
-                                children: [
-                                  const Icon(
-                                    Icons.bookmark,
-                                    size: 20,
-                                  ),
-                                  Text(widget.item.priority.toString()),
-                                ],
-                              ),
-                            ),
-                          )
-                        ],
-                      ),
-                    )
             ],
           ),
         ),

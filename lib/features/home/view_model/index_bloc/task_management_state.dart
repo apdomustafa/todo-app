@@ -19,8 +19,18 @@ class AllTasksGettingSuccessState extends TaskManagementState {
   final List<TaskModule> tasks;
   final List<TaskModule> completedTasks;
 
-  AllTasksGettingSuccessState(
-      {required this.tasks, required this.completedTasks});
+  AllTasksGettingSuccessState({
+    required this.tasks,
+    required this.completedTasks,
+  });
+}
+
+class UserImageGettingSuccessState extends TaskManagementState {
+  final Uint8List? userImage;
+
+  UserImageGettingSuccessState({
+    required this.userImage,
+  });
 }
 
 class TaskGettingSuccessState extends TaskManagementState {

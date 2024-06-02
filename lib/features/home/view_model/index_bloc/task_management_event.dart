@@ -86,3 +86,8 @@ class AllTasksWithTitleNeeded extends TaskManagementEvent {
   final String title;
   AllTasksWithTitleNeeded(this.title);
 }
+
+class TasksSorted extends TaskManagementEvent {
+  final SortBy sortBy;
+  TasksSorted(this.sortBy);
+}

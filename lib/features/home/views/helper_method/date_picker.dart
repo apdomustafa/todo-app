@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:todo_app2/core/DI.dart';
-import 'package:todo_app2/core/models/task_module.dart';
 
 Future<DateTime?> getDate(
     {required BuildContext context,
