@@ -21,7 +21,7 @@ class UserBloc extends Bloc<UserEvent, UserState> {
   UserBloc() : super(UserInitial()) {
     on<ServerUserDateNeeded>((event, emit) async {
       emit(UserDateLoading());
-      String userName = await firebaseService.getUserName();
+      String userName = userInfo.getUserName()!;
       Uint8List? userImage = userInfo.getUserImage();
       int numOfTasksLeft = _taskCRUD.readtasks().length;
       int numOfTasksDone = _taskCRUD.readCompletedTasks().length;

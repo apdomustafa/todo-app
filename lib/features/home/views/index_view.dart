@@ -5,13 +5,11 @@ import 'package:gap/gap.dart';
 import 'package:todo_app2/core/helpers/methods/app_user_info.dart';
 import 'package:todo_app2/core/helpers/methods/loading_dialog.dart';
 import 'package:todo_app2/core/models/task_module.dart';
+import 'package:todo_app2/core/services/background_services/background_services.dart';
 import 'package:todo_app2/features/home/view_model/index_bloc/task_management_bloc.dart';
-import 'package:todo_app2/features/home/views/helper_method/error_dialog.dart';
-import 'package:todo_app2/features/home/views/widgets/drop_down_menu.dart';
+import 'package:todo_app2/features/home/views/widgets/all_tasks.dart';
 import 'package:todo_app2/features/home/views/widgets/index_app_bar.dart';
 import 'package:todo_app2/features/home/views/widgets/index_initial.dart';
-import 'package:todo_app2/features/home/views/widgets/task_item.dart';
-import 'package:todo_app2/features/home/views/widgets/all_tasks.dart';
 import 'package:workmanager/workmanager.dart';
 
 class IndexView extends StatefulWidget {
@@ -29,12 +27,7 @@ class _IndexViewState extends State<IndexView> {
   }
 
   void initDate() async {
-    Workmanager().registerPeriodicTask(
-      "1",
-      "syncTask",
-      initialDelay: const Duration(minutes: 2),
-      frequency: const Duration(minutes: 15), // Minimum interval is 15 minutes
-    );
+    BackgroundServices.triggerSaveTaskToServer();
     await CategoryModule.addInitialCategories(context);
     saveBackupLocaly();
   }

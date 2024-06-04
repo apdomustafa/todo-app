@@ -101,7 +101,6 @@ class FirebaseService {
         );
       }
     } catch (e) {
-      print('Error fetching tasks: $e');
       rethrow;
     }
   }
@@ -145,7 +144,6 @@ class FirebaseService {
         );
       }
     } catch (e) {
-      print('Error fetching tasks: $e');
       rethrow;
     }
   }
@@ -189,7 +187,6 @@ class FirebaseService {
         );
       }
     } catch (e) {
-      print('Error fetching tasks: $e');
       rethrow;
     }
   }

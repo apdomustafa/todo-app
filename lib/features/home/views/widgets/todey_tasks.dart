@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gap/gap.dart';
 import 'package:todo_app2/core/models/task_module.dart';
 import 'package:todo_app2/core/theming/colors.dart';
 import 'package:todo_app2/core/theming/styles.dart';
-import 'package:todo_app2/features/home/view_model/calender_bloc/calender_bloc.dart';
 import 'package:todo_app2/features/home/views/widgets/drop_down_menu.dart';
 import 'package:todo_app2/features/home/views/widgets/task_items.dart';
 

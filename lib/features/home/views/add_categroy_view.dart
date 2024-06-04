@@ -4,7 +4,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
 import 'package:todo_app2/core/DI.dart';
 import 'package:todo_app2/core/models/task_module.dart';
-import 'package:todo_app2/core/theming/colors.dart';
 import 'package:todo_app2/core/theming/styles.dart';
 import 'package:todo_app2/features/home/view_model/index_bloc/task_management_bloc.dart';
 import 'package:todo_app2/features/home/views/helper_method/error_dialog.dart';

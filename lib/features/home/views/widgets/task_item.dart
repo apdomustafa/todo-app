@@ -1,18 +1,12 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
-import 'package:intl/intl.dart';
-import 'package:page_transition/page_transition.dart';
 import 'package:todo_app2/core/helpers/navigation.dart';
 import 'package:todo_app2/core/models/task_module.dart';
 import 'package:todo_app2/core/theming/colors.dart';
-import 'package:todo_app2/core/theming/icons.dart';
 import 'package:todo_app2/core/theming/styles.dart';
 import 'package:todo_app2/core/widgets/alert_dialog.dart';
-import 'package:todo_app2/features/home/view_model/index_bloc/task_management_bloc.dart';
 import 'package:todo_app2/features/home/views/edit_task_view.dart';
 import 'package:todo_app2/features/home/views/helper_method/get_color.dart';
 
@@ -162,28 +156,32 @@ class _TaskItemState extends State<TaskItem> {
                                         ),
                                       ),
                                       Flexible(
-                                        child: Container(
-                                          height: 29,
-                                          margin: const EdgeInsets.symmetric(
-                                              horizontal: 4),
-                                          decoration: BoxDecoration(
-                                            color: AppColors.secondryColor,
-                                            borderRadius:
-                                                BorderRadius.circular(4),
-                                            border: Border.all(
-                                                color: AppColors.primaryColor),
-                                          ),
-                                          child: Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.spaceEvenly,
-                                            children: [
-                                              const Icon(
-                                                Icons.bookmark,
-                                                size: 20,
-                                              ),
-                                              Text(widget.item.priority
-                                                  .toString()),
-                                            ],
+                                        child: FittedBox(
+                                          fit: BoxFit.scaleDown,
+                                          child: Container(
+                                            height: 29.h,
+                                            margin: const EdgeInsets.symmetric(
+                                                horizontal: 4),
+                                            decoration: BoxDecoration(
+                                              color: AppColors.secondryColor,
+                                              borderRadius:
+                                                  BorderRadius.circular(4),
+                                              border: Border.all(
+                                                  color:
+                                                      AppColors.primaryColor),
+                                            ),
+                                            child: Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.spaceEvenly,
+                                              children: [
+                                                const Icon(
+                                                  Icons.bookmark,
+                                                  size: 20,
+                                                ),
+                                                Text(widget.item.priority
+                                                    .toString()),
+                                              ],
+                                            ),
                                           ),
                                         ),
                                       )

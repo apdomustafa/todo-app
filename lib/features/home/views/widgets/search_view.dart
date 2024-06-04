@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:todo_app2/core/theming/colors.dart';
 import 'package:todo_app2/core/theming/icons.dart';
 import 'package:todo_app2/core/theming/styles.dart';
 import 'package:todo_app2/features/home/view_model/index_bloc/task_management_bloc.dart';

@@ -1,11 +1,8 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:gap/gap.dart';
+import 'package:todo_app2/core/models/task_module.dart';
 import 'package:todo_app2/core/theming/colors.dart';
 import 'package:todo_app2/core/theming/styles.dart';
-import 'package:todo_app2/core/models/task_module.dart';
-import 'package:todo_app2/features/home/views/helper_method/edit_task_title.dart';
 
 class TitleAndDescriptionEdit extends StatelessWidget {
   const TitleAndDescriptionEdit(

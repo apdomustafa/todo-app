@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:todo_app2/core/theming/assets.dart';
-import 'package:todo_app2/core/theming/colors.dart';
 import 'package:todo_app2/core/theming/styles.dart';
 import 'package:todo_app2/features/home/view_model/index_bloc/task_management_bloc.dart';
 import 'package:todo_app2/features/home/views/widgets/filter_tasks.dart';
@@ -25,7 +24,8 @@ class _IndexAppBarState extends State<IndexAppBar> {
             imageBytes = state.userImage;
           }
         },
-        buildWhen: (previous, current) => current != previous,
+        buildWhen: (previous, current) =>
+            current != previous && current is UserImageGettingSuccessState,
         builder: (context, state) {
           return Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,

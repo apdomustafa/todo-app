@@ -1,9 +1,6 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:gap/gap.dart';
 import 'package:todo_app2/core/theming/colors.dart';
-import 'package:todo_app2/core/theming/icons.dart';
 import 'package:todo_app2/core/theming/styles.dart';
 
 class TaskEditingItem extends StatelessWidget {
