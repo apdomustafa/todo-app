@@ -15,12 +15,16 @@ import 'package:todo_app2/features/splashFeature/views/splash_view.dart';
 import 'package:todo_app2/features/user/controller/user_bloc/user_bloc.dart';
 
 void main() async {
+  await initApp();
+  runApp(const TodoApp());
+}
+
+Future<void> initApp() async {
   FirebaseService.init();
   setup();
   await DB.initDB();
   AppUserInfo.userInit();
   await BackgroundServices.init();
-  runApp(const TodoApp());
 }
 
 class TodoApp extends StatelessWidget {
@@ -52,6 +56,7 @@ class TodoApp extends StatelessWidget {
           splitScreenMode: true,
           builder: (_, child) {
             return MaterialApp(
+              debugShowCheckedModeBanner: false,
               theme: ThemeData.dark().copyWith(
                 primaryColor: AppColors.primaryColor,
               ),

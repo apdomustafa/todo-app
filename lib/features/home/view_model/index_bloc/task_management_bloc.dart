@@ -106,11 +106,16 @@ class TaskManagementBloc
       emit(TaskManagementLoading());
       await _taskCRUD.clearTasks();
       await _taskCRUD.clearCompletedTasks();
+      await _userInfoStorage.clear();
       var tasks = await firebaseService.getUncompletedTasks();
       var completedTasks = await firebaseService.getCompletedTasks();
       var categories = await firebaseService.getCategories();
       var userName = await firebaseService.getUserName();
       var userImage = await firebaseService.getUserImage();
+      _taskCRUD.addTasks(tasks);
+      _taskCRUD.addCompletedTasks(completedTasks);
+      _userInfoStorage.saveUserName(userName);
+      _userInfoStorage.saveUserImage(userImage);
       emit(TaskManagementDissmisLoading());
       emit(UserImageGettingSuccessState(userImage: userImage));
       if (tasks.isNotEmpty || completedTasks.isNotEmpty) {
@@ -118,11 +123,6 @@ class TaskManagementBloc
           tasks: tasks,
           completedTasks: completedTasks,
         ));
-
-        _taskCRUD.addTasks(tasks);
-        _taskCRUD.addCompletedTasks(completedTasks);
-        _userInfoStorage.saveUserName(userName);
-        _userInfoStorage.saveUserImage(userImage);
 
         if (categories.isNotEmpty) {
           await _taskCRUD.clearCategories();

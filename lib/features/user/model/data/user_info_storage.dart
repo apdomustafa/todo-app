@@ -22,7 +22,7 @@ class UserInfoStorage {
     return userBox.get(kuserImage);
   }
 
-  Future<void> clear() async {
-    userBox.clear();
+  Future<int> clear() async {
+    return await userBox.clear();
   }
 }

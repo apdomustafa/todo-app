@@ -1,6 +1,4 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gap/gap.dart';
 import 'package:todo_app2/core/models/task_module.dart';
@@ -29,127 +27,139 @@ class TaskEditingView extends StatefulWidget {
 class _TaskEditingViewState extends State<TaskEditingView> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 32),
-        child: Column(
-          children: [
-            // app bar
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Container(
-                    decoration: BoxDecoration(
-                      color: AppColors.secondryColor,
-                      borderRadius: BorderRadius.circular(4),
-                    ),
-                    child: IconButton(
-                        onPressed: () {}, icon: const Icon(Icons.close))),
-                Container(
-                    decoration: BoxDecoration(
-                      color: AppColors.secondryColor,
-                      borderRadius: BorderRadius.circular(4),
-                    ),
-                    child: IconButton(
-                        onPressed: () {}, icon: const Icon(Icons.repeat))),
-              ],
-            ),
-            const Gap(37),
-            TitleAndDescriptionEdit(
-              task: widget.task,
-              edit: () {
-                editTaskTitle(context, widget.task)
-                    .then((value) => {setState(() {})});
-              },
-            ),
-            const Gap(46),
-            Expanded(
-              child: ListView(
+    return SafeArea(
+      child: Scaffold(
+        body: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 32),
+          child: Column(
+            children: [
+              // app bar
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  TaskEditingItem(
-                    icon: AppIcons.schedule,
-                    text: 'Task Time',
-                    categoryText: widget.task.getDateAndTime(),
-                    edit: () async {
-                      DateTime? date = await getDate(
-                          context: context,
-                          date: (date) {
-                            widget.task.date = date;
-                          });
-                      if (date != null) {
-                        await getTaskTime(
-                          context: context,
-                          time: (time) {
-                            widget.task.time = time;
+                  Container(
+                      decoration: BoxDecoration(
+                        color: AppColors.secondryColor,
+                        borderRadius: BorderRadius.circular(4),
+                      ),
+                      child: IconButton(
+                          onPressed: () {
+                            Navigator.pop(context);
                           },
-                        );
-                      }
-                      setState(() {});
-                    },
-                  ),
-                  TaskEditingItem(
-                      icon: AppIcons.tag,
-                      text: 'Task Category',
-                      categoryIconData: widget.task.category!.iconCodePoint,
-                      color: widget.task.category!.color,
-                      categoryText: widget.task.category!.categoryName,
-                      edit: () async {
-                        await editCategory(
-                            context: context,
-                            getCategory: (category) {
-                              widget.task.category = category;
-                              Navigator.pop(context);
-                              setState(() {});
-                            });
-                      }),
-                  TaskEditingItem(
-                    icon: AppIcons.bookMark,
-                    text: 'Task Priority',
-                    categoryText: widget.task.priority == 1
-                        ? 'Defult'
-                        : widget.task.priority.toString(),
-                    edit: () async {
-                      await getTaskPriority(
-                          context: context,
-                          getPriority: (int priority) {
-                            setState(() {
-                              widget.task.priority = priority;
-                              Navigator.pop(context);
-                            });
-                          });
-                    },
-                  ),
-                  InkWell(
-                    onTap: () {},
-                    child: Row(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        const Icon(
-                          Icons.delete,
-                          color: Colors.red,
-                        ),
-                        const Gap(10),
-                        Text('Delete Task',
-                            style:
-                                AppStyles.styleLatoReguler16(context).copyWith(
-                              color: Colors.red,
-                            ))
-                      ],
-                    ),
-                  )
+                          icon: const Icon(Icons.close))),
+                  Container(
+                      decoration: BoxDecoration(
+                        color: AppColors.secondryColor,
+                        borderRadius: BorderRadius.circular(4),
+                      ),
+                      child: IconButton(
+                          onPressed: () {}, icon: const Icon(Icons.repeat))),
                 ],
               ),
-            ),
-            SizedBox(
-                width: double.infinity,
-                child: CustomButton(
-                    text: 'Edit Task',
-                    onpress: () {
-                      BlocProvider.of<TaskManagementBloc>(context)
-                          .add(TaskUpdated(widget.task, index: widget.index));
-                      Navigator.pop(context);
-                    })),
-          ],
+              const Gap(37),
+
+              Expanded(
+                child: ListView(
+                  physics: const BouncingScrollPhysics(),
+                  children: [
+                    TitleAndDescriptionEdit(
+                      task: widget.task,
+                      edit: () {
+                        editTaskTitle(context, widget.task)
+                            .then((value) => {setState(() {})});
+                      },
+                    ),
+                    const Gap(46),
+                    TaskEditingItem(
+                      icon: AppIcons.schedule,
+                      text: 'Task Time',
+                      categoryText: widget.task.getDateAndTime(),
+                      edit: () async {
+                        DateTime? date = await getDate(
+                            context: context,
+                            date: (date) {
+                              widget.task.date = date;
+                            });
+                        if (date != null) {
+                          await getTaskTime(
+                            context: context,
+                            time: (time) {
+                              widget.task.time = time;
+                            },
+                          );
+                        }
+                        setState(() {});
+                      },
+                    ),
+                    TaskEditingItem(
+                        icon: AppIcons.tag,
+                        text: 'Task Category',
+                        categoryIconData: widget.task.category!.iconCodePoint,
+                        color: widget.task.category!.color,
+                        categoryText: widget.task.category!.categoryName,
+                        edit: () async {
+                          await editCategory(
+                              context: context,
+                              getCategory: (category) {
+                                widget.task.category = category;
+                                Navigator.pop(context);
+                                setState(() {});
+                              });
+                        }),
+                    TaskEditingItem(
+                      icon: AppIcons.bookMark,
+                      text: 'Task Priority',
+                      categoryText: widget.task.priority == 1
+                          ? 'Defult'
+                          : widget.task.priority.toString(),
+                      edit: () async {
+                        await getTaskPriority(
+                            context: context,
+                            getPriority: (int priority) {
+                              setState(() {
+                                widget.task.priority = priority;
+                                Navigator.pop(context);
+                              });
+                            });
+                      },
+                    ),
+                    InkWell(
+                      onTap: () {
+                        BlocProvider.of<TaskManagementBloc>(context)
+                            .add(TaskDeleted(index: widget.index));
+                        Navigator.pop(context);
+                      },
+                      child: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          const Icon(
+                            Icons.delete,
+                            color: Colors.red,
+                          ),
+                          const Gap(10),
+                          Text('Delete Task',
+                              style: AppStyles.styleLatoReguler16(context)
+                                  .copyWith(
+                                color: Colors.red,
+                              ))
+                        ],
+                      ),
+                    ),
+                    const Gap(18)
+                  ],
+                ),
+              ),
+              SizedBox(
+                  width: double.infinity,
+                  child: CustomButton(
+                      text: 'Edit Task',
+                      onpress: () {
+                        BlocProvider.of<TaskManagementBloc>(context)
+                            .add(TaskUpdated(widget.task, index: widget.index));
+                        Navigator.pop(context);
+                      })),
+            ],
+          ),
         ),
       ),
     );

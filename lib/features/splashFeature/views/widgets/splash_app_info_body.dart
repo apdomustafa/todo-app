@@ -1,13 +1,11 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:gap/gap.dart';
 import 'package:todo_app2/core/helpers/navigation.dart';
 import 'package:todo_app2/core/theming/colors.dart';
 import 'package:todo_app2/core/theming/styles.dart';
-
-import 'package:todo_app2/features/splashFeature/views/login_splash_view.dart';
 import 'package:todo_app2/features/splashFeature/models/splash_model.dart';
+import 'package:todo_app2/features/splashFeature/views/login_splash_view.dart';
 import 'package:todo_app2/features/splashFeature/views/splash_create_view.dart';
 import 'package:todo_app2/features/splashFeature/views/splash_organize_view.dart';
 import 'package:todo_app2/features/splashFeature/views/widgets/splash_view_indicator.dart';
@@ -120,17 +118,17 @@ class SplashAppInfoBody extends StatelessWidget {
     }
   }
 
-  void _moveBack(BuildContext context) {
-    switch (splashModel.viewNumbr) {
-      case 1:
-        Navigator.pop(context);
-        break;
-      case 2:
-        Navigator.pop(context);
-        break;
-      case 3:
-        Navigator.pop(context);
-        break;
-    }
-  }
+  // void _moveBack(BuildContext context) {
+  //   switch (splashModel.viewNumbr) {
+  //     case 1:
+  //       Navigator.pop(context);
+  //       break;
+  //     case 2:
+  //       Navigator.pop(context);
+  //       break;
+  //     case 3:
+  //       Navigator.pop(context);
+  //       break;
+  //   }
+  // }
 }

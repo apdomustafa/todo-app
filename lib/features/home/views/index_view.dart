@@ -32,17 +32,6 @@ class _IndexViewState extends State<IndexView> {
     saveBackupLocaly();
   }
 
-  Future<void> saveBackupLocaly() async {
-    bool? isFirstTime = await AppUserInfo.isFirstTime();
-    if (isFirstTime == true) {
-      BlocProvider.of<TaskManagementBloc>(context)
-          .add(AllTasksFromServerToDBRead());
-      AppUserInfo.update(userFirstTime: false);
-    } else {
-      BlocProvider.of<TaskManagementBloc>(context).add(TasksNeeded());
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -77,5 +66,16 @@ class _IndexViewState extends State<IndexView> {
         ],
       ),
     );
+  }
+
+  Future<void> saveBackupLocaly() async {
+    bool? isFirstTime = await AppUserInfo.isFirstTime();
+    if (isFirstTime == true) {
+      BlocProvider.of<TaskManagementBloc>(context)
+          .add(AllTasksFromServerToDBRead());
+      AppUserInfo.update(userFirstTime: false);
+    } else {
+      BlocProvider.of<TaskManagementBloc>(context).add(TasksNeeded());
+    }
   }
 }

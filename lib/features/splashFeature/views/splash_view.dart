@@ -91,16 +91,16 @@ class _SplashViewState extends State<SplashView> with TickerProviderStateMixin {
     prefs = await SharedPreferences.getInstance();
     bool? status = await AppUserInfo.isSignIn();
     Widget nextScreen = await getTransition(status);
-    naviate(nextScreen);
+    navigate(nextScreen);
   }
 
-  void naviate(Widget child) {
+  void navigate(Widget child) {
     Navigator.pushReplacement(
         context,
         PageTransition(
             duration: const Duration(milliseconds: 500),
             child: child,
-            type: PageTransitionType.leftToRight));
+            type: PageTransitionType.rightToLeftWithFade));
   }
 
   Future<Widget> getTransition(bool? userSignIn) async {

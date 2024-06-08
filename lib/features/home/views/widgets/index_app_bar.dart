@@ -40,7 +40,10 @@ class _IndexAppBarState extends State<IndexAppBar> {
                   width: 40.w,
                   height: 40.w,
                   child: imageBytes == null
-                      ? Image.asset(Assets.imageUserProfile)
+                      ? Icon(
+                          Icons.person,
+                          size: 40.r,
+                        )
                       : Image.memory(
                           imageBytes!,
                         ),

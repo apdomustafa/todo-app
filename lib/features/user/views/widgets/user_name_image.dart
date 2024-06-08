@@ -66,7 +66,10 @@ class _UserNameAndImageAndNumOfTasksState
                 width: 140.w,
                 height: 140.w,
                 child: imageBytes == null
-                    ? Image.asset(Assets.imageUserProfile)
+                    ? Icon(
+                        Icons.person,
+                        size: 140.w,
+                      )
                     : Image.memory(
                         imageBytes!,
                       ),
